@@ -1,27 +1,31 @@
-﻿using Application.SaveFiles.Remove;
+﻿using Application.Dungeons;
+using Application.Dungeons.Edit;
 using Microsoft.AspNetCore.Mvc;
 using Web.API.Infrastructure;
 
-namespace Web.API.Endpoints.SaveFiles;
+namespace Web.API.Endpoints.Dungeons;
 
-internal sealed class Remove : IEndpoint
+internal sealed class Edit : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapDelete(RemoveSaveFileCommand.Path, async (
+        var mapper = new DungeonsMapper();
+
+        app.MapPut(EditDungeonCommand.Path, async (
                 HttpContext httpContext,
                 Guid id,
-                [FromServices] RemoveSaveFileHandler handler,
+                [FromBody] DungeonDto request,
+                [FromServices] EditDungeonHandler handler,
                 CancellationToken cancellationToken) =>
             {
-                var command = new RemoveSaveFileCommand(id, httpContext.GetUserId());
+                var command = mapper.ToCommand(request, id, httpContext.GetUserId());
                 var result = await handler.Handle(command, cancellationToken);
 
                 return result.Match(Results.NoContent, CustomResults.Problem);
             })
             .RequireAuthorization()
-            .WithTags(Tags.SaveFile)
-            .Produces(StatusCodes.Status204NoContent)
+            .WithTags(Tags.Dungeon)
+            .Produces(StatusCodes.Status200OK)
             .ProducesValidationProblem();
     }
 }

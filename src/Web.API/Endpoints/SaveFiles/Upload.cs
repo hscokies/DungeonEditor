@@ -22,7 +22,7 @@ internal sealed class Upload : IEndpoint
                 return result.Match((id) => Results.Accepted(GetSaveFileQuery.Path, id), CustomResults.Problem);
             })
             .RequireAuthorization()
-            .WithTags(Tags.SaveFiles)
+            .WithTags(Tags.SaveFile)
             .Produces(StatusCodes.Status202Accepted)
             .ProducesValidationProblem()
             .DisableAntiforgery();

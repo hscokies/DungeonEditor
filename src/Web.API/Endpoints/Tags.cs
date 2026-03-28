@@ -2,6 +2,7 @@
 
 internal static class Tags
 {
-    public const string Account =  nameof(Account);
-    public const string SaveFiles = nameof(SaveFiles);
+    public const string Account = nameof(Account);
+    public const string SaveFile = nameof(SaveFile);
+    public const string Dungeon = nameof(Dungeon);
 }

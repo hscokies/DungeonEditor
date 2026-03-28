@@ -18,7 +18,7 @@ internal sealed class List : IEndpoint
                 return result.Match(Results.Ok, CustomResults.Problem);
             })
             .RequireAuthorization()
-            .WithTags(Tags.SaveFiles)
+            .WithTags(Tags.SaveFile)
             .Produces(StatusCodes.Status200OK);
     }
 }

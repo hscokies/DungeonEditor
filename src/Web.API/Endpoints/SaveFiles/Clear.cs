@@ -20,7 +20,7 @@ internal sealed class Clear : IEndpoint
                 return result.Match(Results.NoContent, CustomResults.Problem);
             })
             .RequireAuthorization()
-            .WithTags(Tags.SaveFiles)
+            .WithTags(Tags.SaveFile)
             .Produces(StatusCodes.Status204NoContent);
     }
 }

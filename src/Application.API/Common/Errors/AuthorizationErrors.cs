@@ -4,7 +4,9 @@ namespace Application.Common.Errors;
 
 internal static class AuthorizationErrors
 {
-    public static Error InvalidAuthorization => new("Authorization.Invalid", "Invalid username or password", ErrorType.Problem);
-    public static Error UserLockedOut => new("Authorization.Lockout ", "Too many invalid authorization attempts", ErrorType.Problem);
-    public static Error NotAllowed => new("Authorization.NotAllowed ", "The user is not authorized to access this account", ErrorType.Problem);
+    public static Error InvalidAuthorization => Error.Problem("Authorization.Invalid", "Invalid username or password");
+
+    public static Error UserLockedOut => Error.Problem("Authorization.Lockout ", "Too many invalid authorization attempts");
+
+    public static Error NotAllowed => Error.Problem("Authorization.NotAllowed ", "The user is not authorized to access this account");
 }

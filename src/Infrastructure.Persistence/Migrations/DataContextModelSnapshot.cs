@@ -112,6 +112,10 @@ namespace Infrastructure.Persistence.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
                     b.Property<byte>("State")
                         .HasColumnType("smallint")
                         .HasColumnName("state");
@@ -122,6 +126,10 @@ namespace Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id")
                         .HasName("pk_save_files");
+
+                    b.HasIndex("CreatedAt")
+                        .IsDescending()
+                        .HasDatabaseName("ix_save_files_created_at");
 
                     b.HasIndex("UserId")
                         .HasDatabaseName("ix_save_files_user_id");

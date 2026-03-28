@@ -16,7 +16,6 @@
 
     <ItemGroup>
         <Folder Include="SaveFiles\Compile\"/>
-      <Folder Include="Users\GetTransactions\" />
     </ItemGroup>
 
 </Project>

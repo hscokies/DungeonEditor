@@ -10,8 +10,12 @@ internal sealed class TransactionEntityConfiguration : IEntityTypeConfiguration<
     public void Configure(EntityTypeBuilder<Transaction> builder)
     {
         builder.HasKey(x => x.Id);
-        builder.HasDiscriminator<string>("type")
-            .HasValue<InboundTransaction>("inbound")
-            .HasValue<OutboundTransaction>("outbound");
+        builder.HasDiscriminator(x => x.Type)
+            .HasValue<InboundTransaction>(TransactionType.Inbound)
+            .HasValue<OutboundTransaction>(TransactionType.Outbound);
+
+        builder.Property(x => x.Type)
+            .HasConversion<string>()
+            .HasMaxLength(20);
     }
 }

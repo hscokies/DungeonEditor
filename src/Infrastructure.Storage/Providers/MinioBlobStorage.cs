@@ -72,7 +72,7 @@ internal sealed class MinioBlobStorage : IBlobStorage
         }
     }
 
-    public async Task<FileStream> OpenRead(string path, CancellationToken cancellationToken = default)
+    public async Task<Stream> OpenRead(string path, CancellationToken cancellationToken = default)
     {
         var localPath = Path.Combine(
             Path.GetTempPath(),
@@ -248,6 +248,31 @@ internal sealed class MinioBlobStorage : IBlobStorage
         catch (Exception e)
         {
             _logger.Error(e, "Failed to get object stats: {Message}", e.Message);
+            throw e switch
+            {
+                InvalidBucketNameException => new Exceptions.InvalidBucketNameException(e),
+                InvalidObjectNameException => new Exceptions.InvalidObjectNameException(e),
+                BucketNotFoundException => new Exceptions.BucketNotFoundException(e),
+                ObjectNotFoundException => new Exceptions.ObjectNotFoundException(e),
+                _ => throw new ObjectStoreException(e),
+            };
+        }
+    }
+
+    public async Task CopyTo(string path, Stream destination, CancellationToken cancellationToken = default)
+    {
+        var args = new GetObjectArgs()
+            .WithBucket(_settings.Bucket)
+            .WithObject(path)
+            .WithCallbackStream((s, ct) => s.CopyToAsync(destination, ct));
+
+        try
+        {
+            await _client.GetObjectAsync(args, cancellationToken);
+        }
+        catch (Exception e)
+        {
+            _logger.Error(e, "Failed to open object for read: {Message}", e.Message);
             throw e switch
             {
                 InvalidBucketNameException => new Exceptions.InvalidBucketNameException(e),

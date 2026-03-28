@@ -7,9 +7,10 @@ public interface IBlobStorage
         bool recursive = false,
         CancellationToken cancellationToken = default);
 
-    public Task<FileStream> OpenRead(
+    public Task<Stream> OpenRead(
         string path,
         CancellationToken cancellationToken = default);
+
 
     public Task<Blob> Write(
         Stream stream,
@@ -22,6 +23,11 @@ public interface IBlobStorage
         string remotePath,
         CancellationToken cancellationToken = default);
 
+    public Task CopyTo(
+        string path,
+        Stream destination,
+        CancellationToken cancellationToken = default);
+
     public Task Delete(
         string path,
         CancellationToken cancellationToken = default);
@@ -31,9 +37,5 @@ public interface IBlobStorage
 
     public Task<Blob> Get(
         string path,
-        CancellationToken cancellationToken = default);
-
-    public Task<Uri> GetUri(string path,
-        TimeSpan lifeTime,
         CancellationToken cancellationToken = default);
 }

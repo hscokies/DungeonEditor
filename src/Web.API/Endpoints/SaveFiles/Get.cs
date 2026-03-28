@@ -11,7 +11,7 @@ internal sealed class Get : IEndpoint
     {
         app.MapGet(GetSaveFileQuery.Path, async (
                 HttpContext httpContext,
-                [AsParameters] Guid id,
+                Guid id,
                 [FromServices] GetSaveFileHandler handler,
                 CancellationToken cancellationToken) =>
             {
@@ -19,6 +19,10 @@ internal sealed class Get : IEndpoint
                 var result = await handler.Handle(query, cancellationToken);
                 return result.Match(Results.Ok, CustomResults.Problem);
             })
-            .RequireAuthorization();
+            .RequireAuthorization()
+            .WithTags(Tags.SaveFiles)
+            .Produces(StatusCodes.Status200OK)
+            .ProducesValidationProblem()
+            .DisableAntiforgery();
     }
 }

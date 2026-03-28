@@ -72,7 +72,7 @@ internal sealed class MinioBlobStorage : IBlobStorage
         }
     }
 
-    public async Task<Stream> OpenRead(string path, CancellationToken cancellationToken = default)
+    public async Task<FileStream> OpenRead(string path, CancellationToken cancellationToken = default)
     {
         var localPath = Path.Combine(
             Path.GetTempPath(),

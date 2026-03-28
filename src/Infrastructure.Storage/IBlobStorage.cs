@@ -7,7 +7,7 @@ public interface IBlobStorage
         bool recursive = false,
         CancellationToken cancellationToken = default);
 
-    public Task<Stream> OpenRead(
+    public Task<FileStream> OpenRead(
         string path,
         CancellationToken cancellationToken = default);
 

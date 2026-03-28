@@ -4,6 +4,6 @@ namespace Infrastructure.Services.Users;
 
 internal static class UserErrors
 {
-    internal static Error NotFound(string description = "Specified user cannot be found.") => Error.NotFound("User.NotFound", description);
-    internal static Error NotEnoughFunds(string description) => new Error("User.NotEnoughFunds", description, ErrorType.Validation);
+    internal static readonly Error NotFound = Error.NotFound("User.NotFound", "Specified user cannot be found");
+    internal static readonly Error NotEnoughFunds = Error.Problem("User.NotEnoughFunds", "Not enough funds");
 }

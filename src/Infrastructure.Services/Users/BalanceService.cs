@@ -24,12 +24,12 @@ public sealed class BalanceService(IDbContextFactory<DataContext> dbContextFacto
         var user = await dataContext.Users.FindAsync([userId], cancellationToken);
         if (user is null)
         {
-            return UserErrors.NotFound($"unable to charge user with ID {userId}: Not found");
+            return UserErrors.NotFound;
         }
 
         if (user.Balance < amount)
         {
-            return UserErrors.NotEnoughFunds($"unable to charge user with ID {userId}: Not enough funds");
+            return UserErrors.NotEnoughFunds;
         }
 
         user.Balance -= amount;
@@ -52,7 +52,7 @@ public sealed class BalanceService(IDbContextFactory<DataContext> dbContextFacto
         var user = await dataContext.Users.FindAsync([userId], cancellationToken);
         if (user is null)
         {
-            return UserErrors.NotFound($"unable to deposit funds for user with ID {userId}: Not found");
+            return UserErrors.NotFound;
         }
 
         user.Balance += transaction.Amount;

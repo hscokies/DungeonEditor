@@ -62,7 +62,9 @@ public class ParseSaveFileConsumer(IBlobStorage blobStorage, IDataContext dataCo
 
             throw;
         }
-
-        await dataContext.SaveChangesAsync(cancellationToken);
+        finally
+        {
+            await dataContext.SaveChangesAsync(cancellationToken);
+        }
     }
 }

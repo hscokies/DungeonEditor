@@ -17,9 +17,10 @@ internal sealed class DungeonEntityConfiguration : IEntityTypeConfiguration<Dung
 
         builder.Property(x => x.AuthorPSN)
             .HasMaxLength(16);
-        
+
         builder.Property(x => x.AuthorCharacter)
             .HasMaxLength(16);
 
+        builder.HasIndex(x => x.Offset);
     }
 }

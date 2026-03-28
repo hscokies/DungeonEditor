@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>Application</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Infrastructure.Messaging\Infrastructure.Messaging.csproj" />
+      <ProjectReference Include="..\Infrastructure.Persistence\Infrastructure.Persistence.csproj" />
+      <ProjectReference Include="..\Infrastructure.Services\Infrastructure.Services.csproj" />
+      <ProjectReference Include="..\Infrastructure.Storage\Infrastructure.Storage.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Dungeons\Edit\" />
+      <Folder Include="Dungeons\Get\" />
+      <Folder Include="SaveFiles\List\" />
+      <Folder Include="SaveFiles\Remove\" />
+      <Folder Include="Users\GetTransactions\" />
+    </ItemGroup>
+
+</Project>

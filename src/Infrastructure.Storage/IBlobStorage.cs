@@ -26,6 +26,9 @@ public interface IBlobStorage
         string path,
         CancellationToken cancellationToken = default);
 
+    public Task Delete(IEnumerable<string> paths,
+        CancellationToken cancellationToken = default);
+
     public Task<Blob> Get(
         string path,
         CancellationToken cancellationToken = default);

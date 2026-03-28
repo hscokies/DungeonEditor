@@ -14,10 +14,10 @@ namespace Infrastructure.Storage.Providers;
 
 internal sealed class MinioBlobStorage : IBlobStorage
 {
-
-    private readonly MinioSettings _settings;
     private readonly IMinioClient _client;
     private readonly Logger _logger = LogManager.GetCurrentClassLogger();
+
+    private readonly MinioSettings _settings;
 
     public MinioBlobStorage(IOptions<MinioSettings> options)
     {
@@ -188,6 +188,30 @@ internal sealed class MinioBlobStorage : IBlobStorage
         try
         {
             await _client.RemoveObjectAsync(args, cancellationToken);
+        }
+        catch (Exception e)
+        {
+            _logger.Error(e, "Failed to delete object: {Message}", e.Message);
+            throw e switch
+            {
+                InvalidBucketNameException => new Exceptions.InvalidBucketNameException(e),
+                InvalidObjectNameException => new Exceptions.InvalidObjectNameException(e),
+                BucketNotFoundException => new Exceptions.BucketNotFoundException(e),
+                ObjectNotFoundException => new Exceptions.ObjectNotFoundException(e),
+                _ => throw new ObjectStoreException(e),
+            };
+        }
+    }
+
+    public async Task Delete(IEnumerable<string> paths, CancellationToken cancellationToken = default)
+    {
+        var args = new RemoveObjectsArgs()
+            .WithBucket(_settings.Bucket)
+            .WithObjects(paths.ToArray());
+
+        try
+        {
+            await _client.RemoveObjectsAsync(args, cancellationToken);
         }
         catch (Exception e)
         {

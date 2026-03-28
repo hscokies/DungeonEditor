@@ -17,8 +17,6 @@
     <ItemGroup>
       <Folder Include="Dungeons\Edit\" />
       <Folder Include="Dungeons\Get\" />
-      <Folder Include="SaveFiles\List\" />
-      <Folder Include="SaveFiles\Remove\" />
       <Folder Include="Users\GetTransactions\" />
     </ItemGroup>
 

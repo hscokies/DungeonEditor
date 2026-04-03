@@ -1,0 +1,18 @@
+@use 'sass:list';
+
+@mixin transitions($properties...) {
+    $transition-time: 0.15s;
+    $transition-function: ease-in-out;
+
+    $transition-properties: ();
+
+    @each $property in $properties {
+        $transition-properties: list.append(
+            $transition-properties,
+            $property $transition-time $transition-function,
+            comma
+        );
+    }
+
+    transition: $transition-properties;
+}

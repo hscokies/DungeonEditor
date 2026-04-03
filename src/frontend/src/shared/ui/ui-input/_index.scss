@@ -1,0 +1,8 @@
+@mixin variant($root, $border-color: default, $border-color-focus: default, $box-shadow-focus: default) {
+  border-color: $border-color;
+
+  &#{$root}--focused {
+    border-color: $border-color-focus;
+    box-shadow: $box-shadow-focus;
+  }
+}

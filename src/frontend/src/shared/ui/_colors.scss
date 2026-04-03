@@ -1,0 +1,70 @@
+/******************************
+* 🌿 Catppuccin Mocha palette *
+*******************************/
+$cpt-rosewater: #f5e0dc;
+$cpt-flamingo: #f2cdcd;
+$cpt-pink: #f5c2e7;
+$cpt-mauve: #cba6f7;
+$cpt-red: #f38ba8;
+$cpt-maroon: #eba0ac;
+$cpt-peach: #fab387;
+$cpt-yellow: #f9e2af;
+$cpt-green: #a6e3a1;
+$cpt-teal: #94e2d5;
+$cpt-sky: #89dceb;
+$cpt-sapphire: #74c7ec;
+$cpt-blue: #89b4fa;
+$cpt-lavender: #b4befe;
+$cpt-text: #cdd6f4;
+$cpt-subtext-1: #bac2de;
+$cpt-subtext-0: #a6adc8;
+$cpt-overlay-2: #9399b2;
+$cpt-overlay-1: #7f849c;
+$cpt-overlay-0: #6c7086;
+$cpt-surface-2: #585b70;
+$cpt-surface-1: #45475a;
+$cpt-surface-0: #313244;
+$cpt-base: #1e1e2e;
+$cpt-mantle: #181825;
+$cpt-crust: #11111b;
+
+// Background Colors
+$background-pane: $cpt-base;
+
+$secondary-pane-0: $cpt-crust;
+$secondary-pane-1: $cpt-mantle;
+
+$surface-element-0: $cpt-surface-0;
+$surface-element-1: $cpt-surface-1;
+$surface-element-2: $cpt-surface-2;
+
+$overlay-0: $cpt-overlay-0;
+$overlay-1: $cpt-overlay-1;
+$overlay-2: $cpt-overlay-2;
+
+// Typography
+$body-copy: $cpt-text;
+
+$heading: $cpt-text;
+
+$sub-heading-0: $cpt-subtext-0;
+$sub-heading-1: $cpt-subtext-1;
+
+$label-0: $cpt-subtext-0;
+$label-1: $cpt-subtext-1;
+
+$subtle: $cpt-overlay-1;
+
+$on-accent: $cpt-base;
+
+$link: $cpt-blue;
+
+$success: $cpt-green;
+$warning: $cpt-yellow;
+$error: $cpt-red;
+
+$tag: $cpt-blue;
+
+$selection: rgba($cpt-overlay-2, 0.2);
+
+$cursor: $cpt-rosewater;

@@ -11,8 +11,8 @@ public sealed class Dungeon
     public Guid SaveFileId { get; init; }
 
     public SaveFile? SaveFile { get; init; }
-
-    public required string Map { get; set; }
+    
+    public Map Map { get; set; }
 
     public JoinRequirement JoinRequirement { get; set; }
 

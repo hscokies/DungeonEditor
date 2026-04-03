@@ -1,4 +1,5 @@
 ﻿using Application.Common;
+using Application.Common.Errors;
 using Domain.Common;
 using Domain.SaveFiles;
 using Domain.Users;
@@ -12,9 +13,15 @@ namespace Application.SaveFiles.Upload;
 
 public sealed class UploadSaveHandler(IBalanceService balanceService, IBlobStorage blobStorage, IDataContext dataContext, IPublishEndpoint endpoint) : ICommandHandler<UploadSaveCommand, Guid>
 {
+    private const int MaxSizeBytes = 5 * 1024 * 1024; // 5 MB
 
     public async Task<Result<Guid>> Handle(UploadSaveCommand command, CancellationToken cancellationToken)
     {
+        if (command.SaveFile.Length > MaxSizeBytes)
+        {
+            return SaveFileErrors.TooLarge;
+        }
+
         var chargeResult = await balanceService.Charge(CommonTransactions.SaveFileUpload(command.UserId), cancellationToken);
         if (chargeResult.IsFailure)
         {

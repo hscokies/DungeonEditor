@@ -82,11 +82,9 @@ namespace Infrastructure.Persistence.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("join_requirement");
 
-                    b.Property<string>("Map")
-                        .IsRequired()
-                        .HasMaxLength(12)
-                        .HasColumnType("character varying(12)")
-                        .HasColumnName("map");
+                    b.Property<int>("MapId")
+                        .HasColumnType("integer")
+                        .HasColumnName("map_id");
 
                     b.Property<long>("Offset")
                         .HasColumnType("bigint")
@@ -99,6 +97,9 @@ namespace Infrastructure.Persistence.Migrations
                     b.HasKey("Id")
                         .HasName("pk_dungeons");
 
+                    b.HasIndex("MapId")
+                        .HasDatabaseName("ix_dungeons_map_id");
+
                     b.HasIndex("Offset")
                         .HasDatabaseName("ix_dungeons_offset");
 
@@ -106,6 +107,36 @@ namespace Infrastructure.Persistence.Migrations
                         .HasDatabaseName("ix_dungeons_save_file_id");
 
                     b.ToTable("dungeons", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Dungeons.Map", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<byte>("Area")
+                        .HasColumnType("smallint")
+                        .HasColumnName("area");
+
+                    b.Property<byte>("Instance")
+                        .HasColumnType("smallint")
+                        .HasColumnName("instance");
+
+                    b.Property<byte>("LayoutSeed")
+                        .HasColumnType("smallint")
+                        .HasColumnName("layout_seed");
+
+                    b.HasKey("Id")
+                        .HasName("pk_dungeon_maps");
+
+                    b.HasIndex("Area", "LayoutSeed", "Instance")
+                        .HasDatabaseName("ix_dungeon_maps_area_layout_seed_instance");
+
+                    b.ToTable("dungeon_maps", (string)null);
                 });
 
             modelBuilder.Entity("Domain.SaveFiles.SaveFile", b =>
@@ -458,12 +489,21 @@ namespace Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("Domain.Dungeons.Dungeon", b =>
                 {
+                    b.HasOne("Domain.Dungeons.Map", "Map")
+                        .WithMany()
+                        .HasForeignKey("MapId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_dungeons_dungeon_maps_map_id");
+
                     b.HasOne("Domain.SaveFiles.SaveFile", "SaveFile")
                         .WithMany("Dungeons")
                         .HasForeignKey("SaveFileId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_dungeons_save_files_save_file_id");
+
+                    b.Navigation("Map");
 
                     b.Navigation("SaveFile");
                 });

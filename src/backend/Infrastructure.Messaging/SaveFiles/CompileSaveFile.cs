@@ -28,6 +28,7 @@ public class CompileSaveFileConsumer(IDataContext dataContext, IBlobStorage blob
         var saveFile = await dataContext.SaveFiles
             .Where(sf => sf.Id == id)
             .Include(sf => sf.Dungeons.OrderBy(d => d.Offset))
+            .ThenInclude(d => d.Map)
             .FirstOrDefaultAsync(cancellationToken);
 
         if (saveFile is null)
@@ -69,7 +70,8 @@ public class CompileSaveFileConsumer(IDataContext dataContext, IBlobStorage blob
 
     private static async Task WriteMapBytes(MemoryStream ms, Dungeon dungeon, CancellationToken cancellationToken)
     {
-        byte[] bytes = Map.Parse(dungeon.Map);
+        var map = dungeon.Map!;
+        byte[] bytes = [map.Area, map.LayoutSeed, map.Instance];
 
         ms.Position = dungeon.Offset + Offsets.MapOpen + Offsets.Area;
         await ms.WriteAsync(bytes, cancellationToken);

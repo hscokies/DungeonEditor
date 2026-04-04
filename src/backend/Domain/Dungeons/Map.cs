@@ -1,7 +1,35 @@
 ﻿namespace Domain.Dungeons;
 
-public record struct Map(byte Area, byte LayoutSeed, byte Instance)
+public class Map
 {
+
+
+    protected Map() { }
+
+    public Map(byte area, byte layoutSeed, byte instance)
+    {
+        Area = area;
+        LayoutSeed = layoutSeed;
+        Instance = instance;
+        Id = (Area << 16) | (LayoutSeed << 8) | Instance;
+    }
+
+    public Map(int id)
+    {
+        Area = (byte)((Area >> 16) & 0xFF);
+        LayoutSeed = (byte)((LayoutSeed >> 8) & 0xFF);
+        Instance = (byte)(Instance & 0xFF);
+    }
+
+    public int Id { get; init; }
+
+    public byte Area { get; init; }
+
+    public byte LayoutSeed { get; init; }
+
+    public byte Instance { get; init; }
+
+
     public static Map Parse(string map)
     {
         var parts = map.Split('_');

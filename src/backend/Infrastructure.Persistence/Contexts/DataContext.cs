@@ -9,9 +9,6 @@ namespace Infrastructure.Persistence.Contexts;
 
 public class DataContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>, IDataContext
 {
-    public DbSet<SaveFile> SaveFiles { get; init; }
-    public DbSet<Dungeon> Dungeons { get; init; }
-    public DbSet<Transaction> Transactions { get; init; }
 
     public DataContext(DbContextOptions<DataContext> dbContext)
         : base(dbContext)
@@ -24,7 +21,15 @@ public class DataContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>, ID
     }
 
     public User User { get; init; }
-    
+
+    public DbSet<SaveFile> SaveFiles { get; init; }
+
+    public DbSet<Dungeon> Dungeons { get; init; }
+
+    public DbSet<Map> DungeonMaps { get; init; }
+
+    public DbSet<Transaction> Transactions { get; init; }
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.ApplyConfigurationsFromAssembly(typeof(DataContext).Assembly);

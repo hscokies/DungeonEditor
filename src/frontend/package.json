@@ -29,7 +29,7 @@
         "postcss-html": "^1.8.0",
         "prettier": "3.8.1",
         "sass": "^1.97.3",
-        "storybook": "^10.2.1",
+        "storybook": "^10.2.10",
         "stylelint": "^16.24.0",
         "stylelint-config-recess-order": "^7.3.0",
         "stylelint-config-recommended-vue": "^1.6.1",

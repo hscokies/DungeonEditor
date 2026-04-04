@@ -2,6 +2,7 @@
 using Infrastructure.AppSettings;
 using Infrastructure.AppSettings.Models;
 using Infrastructure.Persistence.Contexts;
+using Infrastructure.Persistence.Seeders;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -21,11 +22,11 @@ public static class DependencyInjection
         {
             return services
                 .AddSettings<DbSettings>(configuration)
-                .AddDataContext<IDataContext, DataContext>()
-                .AddDataContext<IReadOnlyDataContext, ReadOnlyDataContext>();
+                .AddDataContext<IDataContext, DataContext>(seed: true)
+                .AddDataContext<IReadOnlyDataContext, ReadOnlyDataContext>(QueryTrackingBehavior.NoTracking);
         }
 
-        private IServiceCollection AddDataContext<TService, TContext>(QueryTrackingBehavior trackingBehavior = QueryTrackingBehavior.TrackAll)
+        private IServiceCollection AddDataContext<TService, TContext>(QueryTrackingBehavior trackingBehavior = QueryTrackingBehavior.TrackAll, bool seed = false)
             where TService : class
             where TContext : DbContext, TService
         {
@@ -41,6 +42,12 @@ public static class DependencyInjection
                         })
                         .UseQueryTrackingBehavior(trackingBehavior)
                         .UseSnakeCaseNamingConvention();
+
+                    if (seed)
+                    {
+                        options.UseAsyncSeeding(((context, _, cancellationToken) => DungeonMapSeeder.SeedAsync(context, cancellationToken)));
+                        options.UseSeeding((context, _) => DungeonMapSeeder.Seed(context));
+                    }
                 })
                 .AddScoped<TService, TContext>((sp) => sp.GetRequiredService<IDbContextFactory<TContext>>().CreateDbContext());
         }

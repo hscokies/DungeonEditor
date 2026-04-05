@@ -1,7 +1,7 @@
+import preview from '#.storybook/preview';
 import { UIInput } from '@/shared/ui';
-import type { Meta, StoryObj } from '@storybook/vue3';
 
-const meta: Meta<typeof UIInput> = {
+const meta = preview.meta({
     title: 'Fields / ui-input',
     component: UIInput,
     render: args => ({
@@ -16,11 +16,9 @@ const meta: Meta<typeof UIInput> = {
                 <template #suffix>Suffix</template>
             </ui-input>`,
     }),
-};
+});
 
-export default meta;
-
-export const Default: StoryObj = {
+export const Default = meta.story({
     args: {
         type: 'text',
         placeholder: 'This is placeholder',
@@ -28,4 +26,4 @@ export const Default: StoryObj = {
         invalid: false,
         readonly: false,
     },
-};
+});

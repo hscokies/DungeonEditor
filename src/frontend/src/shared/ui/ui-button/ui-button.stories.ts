@@ -1,7 +1,7 @@
+import preview from '#.storybook/preview';
 import { UIButton } from '@/shared/ui';
-import type { Meta, StoryObj } from '@storybook/vue3';
 
-const meta: Meta<typeof UIButton> = {
+const meta = preview.meta({
     title: 'Fields / ui-button',
     component: UIButton,
     render: args => ({
@@ -14,14 +14,12 @@ const meta: Meta<typeof UIButton> = {
             <ui-button v-bind='args' v-model='value'>
             </ui-button>`,
     }),
-};
+});
 
-export default meta;
-
-export const Default: StoryObj = {
+export const Default = meta.story({
     args: {
         label: 'Button ',
         disabled: false,
         active: false,
     },
-};
+});

@@ -1,4 +1,4 @@
-import { type Preview, setup } from '@storybook/vue3-vite';
+import { setup, definePreview } from '@storybook/vue3-vite';
 import { classNamePlugin } from '@/shared/plugins/class-name.ts';
 import '@/app/ui/global.scss';
 
@@ -6,7 +6,7 @@ setup(app => {
     app.use(classNamePlugin);
 });
 
-const preview: Preview = {
+export default definePreview({
     parameters: {
         controls: {
             matchers: {
@@ -23,9 +23,10 @@ const preview: Preview = {
             },
         },
     },
+
     initialGlobals: {
         backgrounds: { value: 'dark' },
     },
-};
 
-export default preview;
+    addons: []
+});

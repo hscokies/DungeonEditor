@@ -1,8 +1,8 @@
+import preview from '#.storybook/preview';
 import { UIInput, UIProperty } from '@/shared/ui';
-import type { Meta, StoryObj } from '@storybook/vue3';
 import { v4 as uuidv4 } from 'uuid';
 
-const meta: Meta<typeof UIProperty> = {
+const meta = preview.meta({
     title: 'Fields / ui-property',
     component: UIProperty,
     render: args => ({
@@ -18,16 +18,14 @@ const meta: Meta<typeof UIProperty> = {
                 </template>
             </ui-property>`,
     }),
-};
+});
 
-export default meta;
-
-export const Default: StoryObj = {
+export const Default = meta.story({
     args: {
         id: uuidv4(),
         label: 'This is label',
         direction: 'horizontal',
-        error: null,
+        error: undefined,
     },
     argTypes: {
         direction: {
@@ -37,4 +35,4 @@ export const Default: StoryObj = {
             options: ['horizontal', 'vertical'],
         },
     },
-};
+});

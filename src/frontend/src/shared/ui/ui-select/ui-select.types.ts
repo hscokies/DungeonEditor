@@ -22,11 +22,7 @@ export interface PropTypes {
 
 export type Emits<T> = (e: 'change', value: T) => void;
 
-export interface VisibleItem {
-    header: boolean;
-    renderKey: string;
+export interface SelectedItem {
     label: string;
-    selected: boolean;
-    onSelect: () => void;
-    onHover: () => void;
+    renderKey: string;
 }

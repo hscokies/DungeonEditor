@@ -73,6 +73,7 @@ function handlePopupClose(ev: KeyboardEvent | MouseEvent) {
 
     $el.value?.querySelector<HTMLElement>(`.${triggerClassName}`)?.focus();
     popupService.remove($el.value!);
+    emit('hide');
 }
 
 onBeforeUnmount(() => {

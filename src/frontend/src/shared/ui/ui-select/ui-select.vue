@@ -9,7 +9,7 @@ import {
     useKeyboardNavigation,
     useSelectItems,
 } from '@/shared/hooks';
-import type { Emits, PropTypes } from './ui-select.types.ts';
+import type { Emits, PropTypes, SelectedItem } from './ui-select.types.ts';
 import { UiIconButton, UiInput, UiPopup, UiSpinner } from '@/shared/ui';
 import { computed, ref, useTemplateRef } from 'vue';
 import { ChevronDown, Search } from '@lucide/vue';
@@ -57,8 +57,7 @@ const { filterValue, optionItems, filteredItems } = useSelectItems<T>(
 );
 
 const model = defineModel<T>();
-const label = ref<string>();
-const selected = ref<string>();
+const selected = ref<SelectedItem>();
 
 const scrollerHeight = computed(() => maxVisibleItems * itemHeight);
 const scrollerStyles = computed(() => ({
@@ -142,10 +141,9 @@ function onHeaderClick() {
     popupRef.value?.toggle();
 }
 
-function onSelect(option: OptionItem<T>, renderKey: string) {
+function onSelect(option: OptionItem<T>) {
     model.value = option.value;
-    label.value = option.label;
-    selected.value = option.renderKey;
+    selected.value = option;
 
     popupRef.value?.hide();
 }
@@ -166,10 +164,15 @@ function itemVisible(
 ) {
     return itemTopBorder >= scrollerTopOffset && itemBottomBorder <= scrollerBottomOffset;
 }
+
+function resetFocus() {
+    const index = visibleItems.value.findIndex(item => item.renderKey === selected.value!.renderKey);
+    moveFocus(index);
+}
 </script>
 
 <template>
-    <ui-popup ref="popup" :reference="() => headerRef" placement="bottom-start" strategy="absolute">
+    <ui-popup ref="popup" :reference="() => headerRef" placement="bottom-start" strategy="absolute" @hide="resetFocus">
         <template #default="{ triggerClassName, active }">
             <div :class="$cn('hidden-input-container')">
                 <input
@@ -194,8 +197,8 @@ function itemVisible(
                     <slot name="prefix" />
                 </div>
                 <div :class="$cn('label-container')">
-                    <span v-if="label" :class="$cn('label')">
-                        {{ label }}
+                    <span v-if="selected" :class="$cn('label')">
+                        {{ selected.label }}
                     </span>
                     <span v-else :class="$cn('placeholder')">
                         {{ placeholder }}
@@ -249,7 +252,7 @@ function itemVisible(
                     <template #default="{ item, index }">
                         <ui-select-item
                             :key="item.renderKey"
-                            :selected="item.renderKey === selected"
+                            :selected="item.renderKey === selected?.renderKey"
                             role="menuitemradio"
                             :header="item.header"
                             :focused="index === focusedIndex"

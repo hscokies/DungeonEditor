@@ -1,3 +1,7 @@
-export { default as UIInput } from './ui-input/ui-input.vue';
-export { default as UIButton } from './ui-button/ui-button.vue';
-export { default as UIProperty } from './ui-property/ui-property.vue';
+export { default as UiSpinner } from './ui-spinner/ui-spinner.vue';
+export { default as UiIconButton } from './ui-icon-button/ui-icon-button.vue';
+export { default as UiPopup } from './ui-popup/ui-popup.vue';
+export { default as UiInput } from './ui-input/ui-input.vue';
+export { default as UiButton } from './ui-button/ui-button.vue';
+export { default as UiProperty } from './ui-property/ui-property.vue';
+export { default as UiSelect } from './ui-select/ui-select.vue';

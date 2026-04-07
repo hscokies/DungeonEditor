@@ -242,9 +242,9 @@ function itemVisible(
                     :items="visibleItems"
                 >
                     <template #empty>
-                        <span>
+                        <div :class="$cn('no-data')">
                             {{ $t('Common.NoData') }}
-                        </span>
+                        </div>
                     </template>
                     <template #default="{ item, index }">
                         <ui-select-item
@@ -361,13 +361,18 @@ $box-shadow: 0 8px 16px 0 rgba(colors.$overlay-0, 0.35);
     &__filter {
         --ui-input-background: #{colors.$surface-element-1};
         --ui-input-affix-aspect-ratio: 1/1;
-        --ui-input-field-padding: 0 spacing.$spacing-1;
-        margin: 5px 4px;
+        --ui-input-field-padding: 0 #{spacing.$spacing-1};
+        margin: spacing.$spacing-1-5 spacing.$spacing-1;
     }
 
     &__scroller {
-        padding: 0;
-        margin: 0;
+        padding: spacing.$spacing-0;
+        margin: spacing.$spacing-0;
+    }
+
+    &__no-data {
+        text-align: center;
+        padding: spacing.$spacing-2;
     }
 }
 </style>

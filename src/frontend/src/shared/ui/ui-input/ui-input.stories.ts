@@ -1,12 +1,12 @@
 import preview from '#.storybook/preview';
-import { UIInput } from '@/shared/ui';
+import { UiInput } from '@/shared/ui';
 
 const meta = preview.meta({
     title: 'Fields / ui-input',
-    component: UIInput,
+    component: UiInput,
     render: args => ({
-        components: { 'ui-input': UIInput },
-        data: () => ({
+        components: { 'ui-input': UiInput },
+        setup: () => ({
             args,
             value: '',
         }),

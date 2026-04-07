@@ -61,7 +61,7 @@ function onFocusIn(e: FocusEvent) {
 </template>
 
 <style lang="scss" scoped>
-@use '.' as styles;
+@use 'src/shared/ui/input' as input;
 @use 'src/shared/ui/border-radius' as border-radius;
 @use 'src/shared/ui/typography' as typography;
 @use 'src/shared/ui/spacing' as spacing;
@@ -72,23 +72,7 @@ function onFocusIn(e: FocusEvent) {
 .ui-input {
     $root: &;
 
-    display: inline-flex;
-    align-items: stretch;
-    height: var(--ui-input-height, variables.$input-height);
-    background: var(--ui-input-background, colors.$surface-element-0);
-    border: var(--ui-input-border, variables.$border);
-    color: var(--ui-input-text-color, colors.$label-1);
-    border-radius: var(--ui-input-border-radius, border-radius.$border-radius-md);
-    font-size: var(--ui-input-font-size);
-
-    @include utils.transitions(background-color, border-color, box-shadow);
-
-    &__suffix,
-    &__prefix {
-        display: grid;
-        place-items: center;
-        height: 100%;
-    }
+    @include input.style();
 
     &__field {
         flex: 1;
@@ -121,7 +105,7 @@ function onFocusIn(e: FocusEvent) {
         }
     }
 
-    @include styles.variant(
+    @include input.variant(
         $root,
         var(--ui-input-border-color, colors.$overlay-0),
         var(--ui-input-focus-border-color, colors.$cpt-mauve),
@@ -129,21 +113,12 @@ function onFocusIn(e: FocusEvent) {
     );
 
     &--invalid {
-        @include styles.variant(
+        @include input.variant(
             $root,
             var(--ui-input-invalid-border-color, colors.$error),
             var(--ui-input-invalid-focus-border-color, colors.$error),
             var(--ui-input-invalid-focus-box-shadow, variables.$box-shadow rgba(colors.$error, 0.25))
         );
-    }
-
-    &--readonly {
-        background: var(--ui-input-readonly-background, colors.$surface-element-2);
-    }
-
-    &--disabled {
-        pointer-events: none;
-        opacity: variables.$disabled-opacity;
     }
 }
 </style>

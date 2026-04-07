@@ -1,9 +1,10 @@
 import { setup, definePreview } from '@storybook/vue3-vite';
 import { classNamePlugin } from '@/shared/plugins/class-name.ts';
 import '@/app/ui/global.scss';
+import { i18n } from '@/shared/i18n';
 
 setup(app => {
-    app.use(classNamePlugin);
+    app.use(classNamePlugin).use(i18n);
 });
 
 export default definePreview({
@@ -28,5 +29,5 @@ export default definePreview({
         backgrounds: { value: 'dark' },
     },
 
-    addons: []
+    addons: [],
 });

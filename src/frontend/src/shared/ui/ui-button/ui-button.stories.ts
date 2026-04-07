@@ -1,12 +1,12 @@
 import preview from '#.storybook/preview';
-import { UIButton } from '@/shared/ui';
+import { UiButton } from '@/shared/ui';
 
 const meta = preview.meta({
     title: 'Fields / ui-button',
-    component: UIButton,
+    component: UiButton,
     render: args => ({
-        components: { 'ui-button': UIButton },
-        data: () => ({
+        components: { 'ui-button': UiButton },
+        setup: () => ({
             args,
             value: '',
         }),

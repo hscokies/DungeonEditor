@@ -166,7 +166,7 @@ function itemVisible(
 }
 
 function resetFocus() {
-    const index = visibleItems.value.findIndex(item => item.renderKey === selected.value!.renderKey);
+    const index = visibleItems.value.findIndex(item => item.renderKey === selected.value?.renderKey);
     moveFocus(index);
 }
 </script>

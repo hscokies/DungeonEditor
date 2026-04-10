@@ -12,10 +12,6 @@ internal sealed class DungeonEntityConfiguration : IEntityTypeConfiguration<Dung
             .WithMany(x => x.Dungeons)
             .HasForeignKey(x => x.SaveFileId);
 
-        builder.HasOne(x => x.Map)
-            .WithMany()
-            .HasForeignKey(x => x.MapId);
-
         builder.Property(x => x.AuthorPSN)
             .HasMaxLength(16);
 
@@ -23,5 +19,10 @@ internal sealed class DungeonEntityConfiguration : IEntityTypeConfiguration<Dung
             .HasMaxLength(16);
 
         builder.HasIndex(x => x.Offset);
+
+        builder.HasIndex(x => x.Map);
+
+        builder.Property(x => x.Map)
+            .HasMaxLength(12);
     }
 }

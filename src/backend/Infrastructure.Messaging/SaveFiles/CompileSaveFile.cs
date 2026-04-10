@@ -70,7 +70,7 @@ public class CompileSaveFileConsumer(IDataContext dataContext, IBlobStorage blob
 
     private static async Task WriteMapBytes(MemoryStream ms, Dungeon dungeon, CancellationToken cancellationToken)
     {
-        var map = dungeon.Map!;
+        var map = Map.Parse(dungeon.Map);
         byte[] bytes = [map.Area, map.LayoutSeed, map.Instance];
 
         ms.Position = dungeon.Offset + Offsets.MapOpen + Offsets.Area;

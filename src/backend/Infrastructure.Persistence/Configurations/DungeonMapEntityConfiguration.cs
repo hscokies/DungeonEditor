@@ -9,7 +9,9 @@ internal sealed class DungeonMapEntityConfiguration : IEntityTypeConfiguration<M
 
     public void Configure(EntityTypeBuilder<Map> builder)
     {
-        builder.HasKey(x => x.Id);
+        builder.HasIndex(x => x.Name);
+        builder.Property(x => x.Name)
+            .HasMaxLength(12);
 
         builder.HasIndex(x => new
         {

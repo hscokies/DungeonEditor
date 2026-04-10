@@ -15,7 +15,7 @@ public sealed class GetDungeonHandler(IReadOnlyDataContext dataContext) : IQuery
             .Where(x => x.SaveFile!.UserId == query.UserId && x.Id == query.Id)
             .Include(x => x.Map)
             .Select(x => new GetDungeonResult(
-                x.Map!.ToString(), x.JoinRequirement,
+                x.Map, x.JoinRequirement,
                 x.Effect1, x.Effect2, x.Effect3,
                 x.Effect4, x.Effect5, x.Effect6,
                 x.Effect7, x.Effect8, x.Effect9,

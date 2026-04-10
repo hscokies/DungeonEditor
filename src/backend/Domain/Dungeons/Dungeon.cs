@@ -12,9 +12,7 @@ public sealed class Dungeon
 
     public SaveFile? SaveFile { get; init; }
 
-    public int MapId { get; set; }
-
-    public Map? Map { get; set; }
+    public string Map { get; set; }
 
     public JoinRequirement JoinRequirement { get; set; }
 

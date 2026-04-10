@@ -30,8 +30,12 @@ try
         .AddMinioBlobStorage(configuration)
         .AddServices()
         .AddRequestHandlers()
-        .AddMessaging(configuration);
-        
+        .AddMessaging(configuration)
+        .AddMemoryCache(x =>
+        {
+            x.SizeLimit = 1000;
+        });
+
 
     var app = builder.Build();
     app.UseAuthentication();

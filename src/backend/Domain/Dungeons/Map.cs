@@ -8,20 +8,16 @@ public class Map
 
     public Map(byte area, byte layoutSeed, byte instance)
     {
+        Name = $"m29_{area:D2}_{layoutSeed:D2}_{instance:D2}";
         Area = area;
         LayoutSeed = layoutSeed;
         Instance = instance;
         Id = (Area << 16) | (LayoutSeed << 8) | Instance;
     }
 
-    public Map(int id)
-    {
-        Area = (byte)((Area >> 16) & 0xFF);
-        LayoutSeed = (byte)((LayoutSeed >> 8) & 0xFF);
-        Instance = (byte)(Instance & 0xFF);
-    }
-
     public int Id { get; init; }
+
+    public string Name { get; init; }
 
     public byte Area { get; init; }
 
@@ -41,9 +37,8 @@ public class Map
         return new Map(area, layoutSeed, instance);
     }
 
-    public override string ToString() => $"m29_{Area:D2}_{LayoutSeed:D2}_{Instance:D2}";
 
-    public static implicit operator string(Map map) => map.ToString();
+    public static implicit operator string(Map map) => map.Name;
 
     public static implicit operator byte[](Map map) => [map.Area, map.LayoutSeed, map.Instance];
 }

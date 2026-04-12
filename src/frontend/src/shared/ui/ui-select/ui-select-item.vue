@@ -29,6 +29,7 @@ const styles = computed(() => ({
 @use 'src/shared/ui/spacing' as spacing;
 @use 'src/shared/ui/utils' as utils;
 @use 'src/shared/ui/typography' as typography;
+@use 'sass:color' as color;
 
 .ui-select-item {
     display: inline-flex;
@@ -45,7 +46,7 @@ const styles = computed(() => ({
     }
 
     &--selected {
-        background-color: darken(colors.$cpt-lavender, 5);
+        background-color: color.scale(colors.$cpt-lavender, $lightness: -30%);
         color: colors.$on-accent;
     }
 

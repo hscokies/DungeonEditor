@@ -1,5 +1,6 @@
 @use 'src/shared/ui/colors' as colors;
 @use 'src/shared/ui/typography' as typography;
+@use 'src/shared/ui/spacing' as spacing;
 
 * {
     box-sizing: border-box;
@@ -9,25 +10,33 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizelegibility;
-    margin: 0;
+    margin: spacing.$spacing-0;
+    background: colors.$background-pane;
     color: colors.$body-copy;
     font-size: typography.$font-size-md;
     font-family: "Nunito Sans", -apple-system, ".SFNSText-Regular", "San Francisco", BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#app{
+    display: flex;
+    flex-flow: column nowrap;
+    height: 100vh;
 }
 
 button {
     cursor: pointer;
     background-color: unset;
     border: none;
-    padding: 0;
+    padding: spacing.$spacing-0;
 }
 
 a {
     text-decoration: none;
+    color: colors.$cpt-rosewater
 }
 
 strong {
-    font-weight: 600;
+    font-weight: typography.$font-weight-semibold;
 }
 
 em {
@@ -35,18 +44,22 @@ em {
 }
 
 [type="checkbox"], [type="radio"] {
-    padding: 0;
+    padding: spacing.$spacing-0;
 }
 
 button, input, optgroup, select, textarea {
     font-family: inherit;
     font-size: 100%;
     line-height: 1.15;
-    margin: 0;
+    margin: spacing.$spacing-0;
 }
 
 ul, ol{
-    padding: 0;
-    margin: 0;
+    padding: spacing.$spacing-0;
+    margin: spacing.$spacing-0;
     list-style: none;
+}
+
+h1{
+    margin: spacing.$spacing-0;
 }

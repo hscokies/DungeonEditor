@@ -24,11 +24,12 @@ export function useProblemDetails<TModel extends Record<string, FormField>>(init
 
     function applyProblemDetails(details: ProblemDetails) {
         error.value = details.detail;
-
-        for (const [field, errors] of Object.entries(details.errors)) {
-            if (field in model) {
-                getField(field).error = errors.map(e => i18n.global.t(`Errors.${e.code}`)).join('\n');
-            }
+        if (details.errors) {
+            Object.entries(details.errors).forEach(([field, errors]) => {
+                if (field in model) {
+                    getField(field).error = errors.map(e => i18n.global.t(`Errors.${e.code}`)).join('\n');
+                }
+            });
         }
     }
 

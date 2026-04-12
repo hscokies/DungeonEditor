@@ -1,8 +1,44 @@
 {
+    "Pages": {
+        "Login": {
+            "Title": "Sign in",
+            "Labels": {
+                "Title": "Welcome back!",
+                "DontHaveAccount": "Don't have an account?"
+            }
+        },
+        "Register": {
+            "Title": "Sign up",
+            "Labels": {
+                "Title": " Create account",
+                "Create": "Sign up",
+                "AlreadyRegistered": "Already have an account?"
+            }
+        }
+    },
     "Common": {
-        "NoData": "No results"
+        "NoData": "No results",
+        "Username": "Username",
+        "Password": "Password",
+        "SignIn": "Sign in",
+        "SignUp": "Sign up"
     },
     "Accessibility": {
         "ToggleDropdown": "Toggle dropdown"
+    },
+    "Errors": {
+        "Common": {
+            "FieldRequired": "This field is required."
+        },
+        "Registration": {
+            "DuplicateUserName": "A user with the specified username already exists.",
+            "InvalidUserName": "The username may contain only letters and digits.",
+            "InvalidPasswordFormat": "Password must be 12+ characters and include uppercase, lowercase, number, and symbol."
+        },
+        "Authorization": {
+            "Invalid": "Incorrect username or password.",
+            "Lockout": "Too many unsuccessful login attempts. Please try again later.",
+            "NotAllowed": "Access to this account is restricted."
+        }
     }
 }

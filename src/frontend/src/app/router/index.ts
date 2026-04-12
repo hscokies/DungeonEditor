@@ -1,17 +1,32 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import { LoginPage } from '@/pages';
+import { LoginPage, RegisterPage } from '@/pages/ui';
+import { i18n } from '@/shared/i18n';
 
-const DEFAULT_TITLE = '%AppTitle%';
+const DEFAULT_TITLE = 'Bloodborne dungeon editor';
+
+export enum Routes {
+    Upload = 'upload',
+    Login = 'login',
+    Register = 'register',
+}
 
 export const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
         {
             path: '/login',
-            name: 'login',
+            name: Routes.Login,
             component: LoginPage,
             meta: {
-                title: 'Sign in',
+                title: i18n.global.t('Pages.Login.Title'),
+            },
+        },
+        {
+            path: '/register',
+            name: Routes.Register,
+            component: RegisterPage,
+            meta: {
+                title: i18n.global.t('Pages.Register.Title'),
             },
         },
         // {

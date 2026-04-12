@@ -5,3 +5,4 @@ export { default as UiInput } from './ui-input/ui-input.vue';
 export { default as UiButton } from './ui-button/ui-button.vue';
 export { default as UiProperty } from './ui-property/ui-property.vue';
 export { default as UiSelect } from './ui-select/ui-select.vue';
+export { default as UiForm } from './ui-form/ui-form.vue';

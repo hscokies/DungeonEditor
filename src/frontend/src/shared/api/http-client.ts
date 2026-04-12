@@ -1,6 +1,6 @@
-import { router } from '@/app/router';
+import { router, Routes } from '@/app/router';
 
-export enum HTTP_METHOD {
+enum HTTP_METHOD {
     GET = 'GET',
     POST = 'POST',
     PUT = 'PUT',
@@ -8,7 +8,7 @@ export enum HTTP_METHOD {
     DELETE = 'DELETE',
 }
 
-export enum CONTENT_TYPE {
+enum CONTENT_TYPE {
     JSON = 'application/json',
     FORM = 'application/x-www-form-urlencoded',
 }
@@ -20,20 +20,34 @@ interface HttpGetRequest {
 
 type HttpRequest = HttpGetRequest;
 
-export class HttpClient {
-    constructor(private readonly baseUrl: string) {}
-
-    private getFullUrl(path: string) {
-        return new URL(path, this.baseUrl);
-    }
-
+class HttpClient {
     public async sendRequest(request: HttpRequest) {
-        const response = await fetch(this.getFullUrl(request.path), request.options);
+        const response = await fetch(request.path, request.options);
         if (response.status === 401) {
-            await router.push('/login');
-            return;
+            await router.replace(Routes.Login);
         }
 
         return response;
     }
+
+    public async postJson<TRequest = Record<string, unknown>>(path: string, body: TRequest): Promise<void> {
+        const response = await this.sendRequest({
+            path,
+            options: {
+                method: HTTP_METHOD.POST,
+                headers: {
+                    'Content-Type': CONTENT_TYPE.JSON,
+                },
+                body: JSON.stringify(body),
+            },
+        });
+
+        if (!response.ok) {
+            throw await response.json();
+        }
+
+        return undefined;
+    }
 }
+
+export const httpClient = new HttpClient();

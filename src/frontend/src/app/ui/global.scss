@@ -1,6 +1,7 @@
 @use 'src/shared/ui/colors' as colors;
 @use 'src/shared/ui/typography' as typography;
 @use 'src/shared/ui/spacing' as spacing;
+@use 'src/shared/ui/variables' as variables;
 
 * {
     box-sizing: border-box;
@@ -62,4 +63,9 @@ ul, ol{
 
 h1{
     margin: spacing.$spacing-0;
+}
+
+:focus{
+    outline: variables.$outline solid colors.$cpt-mauve;
+    box-shadow: variables.$box-shadow rgba(colors.$cpt-mauve, 0.25)
 }

@@ -1,33 +1,13 @@
 <script setup lang="ts">
 import { useCustomFocus } from '@/shared/hooks';
 import { ref } from 'vue';
+import type { PropTypes } from './ui-input.types.ts';
 
 const { focused, onFocus, onBlur } = useCustomFocus();
-const props = defineProps({
-    value: String,
-    type: {
-        type: String,
-        default: 'text',
-    },
-    placeholder: {
-        type: String,
-        required: false,
-    },
-    disabled: {
-        type: Boolean,
-        default: false,
-    },
-    invalid: {
-        type: Boolean,
-        default: false,
-    },
-    readonly: {
-        type: Boolean,
-        default: false,
-    },
-});
+const { type = 'text', placeholder, disabled = false, invalid = false, readonly = false } = defineProps<PropTypes>();
 
 const fieldRef = ref<HTMLInputElement | null>(null);
+const model = defineModel();
 
 function onFocusIn(e: FocusEvent) {
     if (e.target === fieldRef.value) {
@@ -48,11 +28,12 @@ function onFocusIn(e: FocusEvent) {
         <input
             ref="fieldRef"
             v-bind="$attrs"
-            :type="props.type"
+            :type="type"
             :class="$cn('field')"
-            :disabled="props.disabled"
-            :readonly="props.readonly"
-            :placeholder="props.placeholder"
+            :disabled="disabled"
+            :readonly="readonly"
+            :placeholder="placeholder"
+            v-model="model"
         />
         <div v-if="$slots.suffix" :class="$cn('suffix')">
             <slot name="suffix" />

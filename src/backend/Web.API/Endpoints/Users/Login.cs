@@ -9,7 +9,7 @@ internal sealed class Login : IEndpoint
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
         app.MapPost(LoginCommand.Path, async (
-                LoginCommand command,
+                [FromBody] LoginCommand command,
                 [FromServices] LoginHandler handler,
                 CancellationToken cancellationToken) =>
         {

@@ -34,6 +34,11 @@ public record Error(string Code, string Description)
     {
         return new Error(code, description, ErrorType.Conflict);
     }
+
+    public static Error Validation(string code, string description)
+    {
+        return new Error(code, description, ErrorType.Validation);
+    }
 }
 
 public record ValidationError(IDictionary<string, IEnumerable<Error>> Errors) : Error("Validation.General", "One or more validation errors occurred", ErrorType.Validation);

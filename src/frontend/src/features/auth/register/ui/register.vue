@@ -6,7 +6,7 @@ import Auth from '@/features/auth/ui/auth.vue';
 </script>
 
 <template>
-    <auth :title="$t('Pages.Register.Labels.Title')" :handle-auth="AccountApi.login">
+    <auth :title="$t('Pages.Register.Labels.Title')" :handle-auth="AccountApi.register">
         <template #default="{ loading }">
             <ui-button :label="$t('Common.SignIn')" :loading="loading" :disabled="loading" />
         </template>

@@ -1,4 +1,4 @@
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 import { i18n } from '@/shared/i18n';
 import type { ProblemDetails } from '@/shared/api/types.ts';
 
@@ -8,6 +8,7 @@ interface FormField {
 }
 
 export function useProblemDetails<TModel extends Record<string, FormField>>(initialModel: TModel) {
+    const error = ref<string>('');
     const model = reactive(initialModel) as TModel;
 
     function getField(name: keyof TModel): FormField {
@@ -15,15 +16,14 @@ export function useProblemDetails<TModel extends Record<string, FormField>>(init
     }
 
     function clearErrors() {
+        error.value = '';
         Object.keys(model).forEach(field => {
             getField(field).error = '';
         });
     }
 
     function applyProblemDetails(details: ProblemDetails) {
-        if (!details.errors) {
-            return;
-        }
+        error.value = details.detail;
 
         for (const [field, errors] of Object.entries(details.errors)) {
             if (field in model) {
@@ -34,6 +34,7 @@ export function useProblemDetails<TModel extends Record<string, FormField>>(init
 
     return {
         model,
+        error,
         clearErrors,
         applyProblemDetails,
     };

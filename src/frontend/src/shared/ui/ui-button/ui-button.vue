@@ -1,16 +1,18 @@
 <script setup lang="ts">
-const props = defineProps({
-    label: String,
-    active: Boolean,
-    disabled: Boolean,
-});
+import type { PropTypes } from './ui-button.styles.ts';
+import { UiSpinner } from '@/shared/ui';
+
+const { label, active, disabled, loading } = defineProps<PropTypes>();
 </script>
 
 <template>
     <button v-bind="$attrs" :class="$cn({ active: active && !disabled })" :disabled="disabled">
         <slot name="prefix" />
-        <span :class="$cn('label')">
-            {{ props.label }}
+        <span v-if="!loading" :class="$cn('label')">
+            {{ label }}
+        </span>
+        <span v-else>
+            <ui-spinner :size="16" />
         </span>
         <slot name="suffix" />
     </button>

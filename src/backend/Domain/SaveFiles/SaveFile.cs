@@ -9,6 +9,8 @@ public class SaveFile
 
     public DateTime CreatedAt { get; init; } = DateTime.UtcNow;
 
+    public string FileName { get; init; } = string.Empty;
+
     public SaveFileState State { get; set; } = SaveFileState.Uploaded;
 
     public Guid UserId { get; init; }

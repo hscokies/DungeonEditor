@@ -11,5 +11,8 @@ internal sealed class SaveFileEntityConfiguration : IEntityTypeConfiguration<Sav
     {
         builder.HasKey(x => x.Id);
         builder.HasIndex(x => x.CreatedAt).IsDescending();
+        builder.Property(x => x.FileName)
+            .HasMaxLength(256)
+            .IsRequired();
     }
 }

@@ -31,6 +31,7 @@ public sealed class UploadSaveHandler(IBalanceService balanceService, IBlobStora
         var saveFile = new SaveFile
         {
             UserId = command.UserId,
+            FileName = command.SaveFile.FileName,
         };
         dataContext.SaveFiles.Add(saveFile);
 

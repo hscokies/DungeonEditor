@@ -1,13 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import { LoginPage, RegisterPage } from '@/pages/ui';
+import { LoginPage, RegisterPage, UploadPage, UploadsPage } from '@/pages/ui';
 import { i18n } from '@/shared/i18n';
 
-const DEFAULT_TITLE = 'Bloodborne dungeon editor';
-
 export enum Routes {
-    Upload = 'upload',
     Login = 'login',
     Register = 'register',
+    Upload = 'upload',
+    Uploads = 'uploads',
+    Transactions = 'transactions',
 }
 
 export const router = createRouter({
@@ -29,17 +29,26 @@ export const router = createRouter({
                 title: i18n.global.t('Pages.Register.Title'),
             },
         },
-        // {
-        //   path: '/about',
-        //   name: 'about',
-        // route level code-splitting
-        // this generates a separate chunk (About.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        // component: () => import('../views/AboutView.vue'),
-        // },
+        {
+            path: '/upload',
+            name: Routes.Upload,
+            component: UploadPage,
+            meta: {
+                title: i18n.global.t('Pages.Upload.Title'),
+            },
+        },
+        {
+            path: '/uploads',
+            name: Routes.Uploads,
+            component: UploadsPage,
+            meta: {
+                title: i18n.global.t('Pages.Uploads.Title'),
+            },
+        },
     ],
 });
 
-router.beforeEach(to => {
-    document.title = to.meta.title ?? DEFAULT_TITLE;
+router.beforeEach((to, _, next) => {
+    document.title = to.meta.title ?? i18n.global.t('Common.ProjectName');
+    next();
 });

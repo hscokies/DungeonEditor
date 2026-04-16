@@ -10,7 +10,6 @@ enum HTTP_METHOD {
 
 enum CONTENT_TYPE {
     JSON = 'application/json',
-    FORM = 'application/x-www-form-urlencoded',
 }
 
 interface HttpGetRequest {
@@ -24,7 +23,7 @@ class HttpClient {
     public async sendRequest(request: HttpRequest) {
         const response = await fetch(request.path, request.options);
         if (response.status === 401) {
-            await router.replace(Routes.Login);
+            await router.replace({ name: Routes.Login });
         }
 
         return response;
@@ -47,6 +46,31 @@ class HttpClient {
         }
 
         return undefined;
+    }
+
+    public async postForm(path: string, data: FormData): Promise<void> {
+        const response = await this.sendRequest({
+            path,
+            options: {
+                method: HTTP_METHOD.POST,
+                body: data,
+            },
+        });
+
+        if (!response.ok) {
+            throw await response.json();
+        }
+
+        return undefined;
+    }
+
+    public async delete(path: string) {
+        return await this.sendRequest({
+            path,
+            options: {
+                method: HTTP_METHOD.DELETE,
+            },
+        });
     }
 }
 

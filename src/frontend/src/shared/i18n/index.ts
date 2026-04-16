@@ -8,6 +8,7 @@ function loadLocalizationFiles(files: Record<string, unknown>) {
 }
 
 export const i18n = createI18n({
+    legacy: false,
     locale: 'en',
     fallbackLocale: 'en',
     messages: loadLocalizationFiles(import.meta.glob('@/shared/i18n/*.json', { eager: true, import: 'default' })),

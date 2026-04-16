@@ -9,4 +9,8 @@ export class AccountApi {
     public static login(request: LoginRequest) {
         return httpClient.postJson('/api/session', request);
     }
+
+    public static logout() {
+        return httpClient.delete('/api/session');
+    }
 }

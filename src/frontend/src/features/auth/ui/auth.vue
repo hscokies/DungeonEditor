@@ -59,7 +59,7 @@ async function onSubmit() {
     lock();
     try {
         await handleAuth(request);
-        await router.replace(Routes.Upload);
+        await router.replace({ name: Routes.Upload });
     } catch (error) {
         applyProblemDetails(error as ProblemDetails);
     } finally {

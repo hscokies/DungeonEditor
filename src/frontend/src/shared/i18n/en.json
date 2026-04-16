@@ -11,24 +11,55 @@
             "Title": "Sign up",
             "Labels": {
                 "Title": " Create account",
-                "Create": "Sign up",
                 "AlreadyRegistered": "Already have an account?"
             }
+        },
+        "Upload": {
+            "Title": "Upload save file",
+            "Labels": {
+                "Title": "Upload save file",
+                "DragNDrop": "Drag and drop your save file here",
+                "Upload": "Upload"
+            }
+        },
+        "Uploads": {
+            "Title": "Save file uploads"
         }
     },
+    "Navbar": {
+        "Uploads": "Uploads",
+        "Upload": "Upload",
+        "Transactions": "Transactions"
+    },
     "Common": {
+        "ProjectName": "Bloodborne Dungeon Editor",
         "NoData": "No results",
         "Username": "Username",
         "Password": "Password",
         "SignIn": "Sign in",
-        "SignUp": "Sign up"
+        "SignUp": "Sign up",
+        "SignOut": "Sign out",
+        "Or": "Or",
+        "BrowseFiles": "Browse Files",
+        "Units": {
+            "Byte": {
+                "Short": "B"
+            },
+            "Kilobyte": {
+                "Short": "KB"
+            },
+            "Megabyte": {
+                "Short": "MB"
+            }
+        }
     },
     "Accessibility": {
         "ToggleDropdown": "Toggle dropdown"
     },
     "Errors": {
         "Common": {
-            "FieldRequired": "This field is required."
+            "FieldRequired": "This field is required.",
+            "Unknown": "Something went wrong. Please try again later."
         },
         "Registration": {
             "DuplicateUserName": "A user with the specified username already exists.",
@@ -39,6 +70,12 @@
             "Invalid": "Incorrect username or password.",
             "Lockout": "Too many unsuccessful login attempts. Please try again later.",
             "NotAllowed": "Access to this account is restricted."
+        },
+        "SaveFile": {
+            "TooLarge": "File exceeds 5MB limit."
+        },
+        "User": {
+            "NotEnoughFunds": "Not enough funds."
         }
     }
 }

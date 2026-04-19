@@ -5,7 +5,7 @@ import { type DatatableColumn, type Emits, Injections, type PropTypes } from './
 import { RecycleScroller } from 'vue-virtual-scroller';
 
 const emit = defineEmits<Emits>();
-const { keyField, rowHeight, maxVisibleRows = 30, data } = defineProps<PropTypes>();
+const { keyField, rowHeight, maxVisibleRows = 30, rows } = defineProps<PropTypes>();
 
 const scrollerHeight = computed(() => maxVisibleRows * rowHeight);
 const datatableStyles = computed(() => ({
@@ -32,7 +32,7 @@ function getRenderKey(...args: unknown[]) {
 }
 
 provide(Injections.RegisterColumn, (column: DatatableColumn) => {
-    if (!columns.value.some(x => x.field === column.field)) {
+    if (!columns.value.some(x => x.header === column.header)) {
         columns.value.push(column);
     }
 });
@@ -46,7 +46,7 @@ provide(Injections.RegisterColumn, (column: DatatableColumn) => {
                 ref="scroller"
                 :item-size="rowHeight"
                 :key-field="keyField"
-                :items="data"
+                :items="rows"
                 :class="$cn('scroller')"
                 @scrollend="loadMore"
             >
@@ -69,10 +69,14 @@ provide(Injections.RegisterColumn, (column: DatatableColumn) => {
                     <div :class="$cn('row')" :key="getRenderKey(row[keyField])">
                         <div v-for="column in columns" :class="$cn('cell')">
                             <div :class="$cn('cell-content')">
-                                <span v-if="column.field && row[column.field]" :class="$cn('cell-text')">
+                                <span
+                                    v-if="column.field && row[column.field]"
+                                    :class="$cn('cell-text')"
+                                    :key="getRenderKey(row[keyField], column.header, row[column.field])"
+                                >
                                     {{ row[column.field] }}
                                 </span>
-                                <component :is="column.slots?.default" :rowKey="row[keyField]" />
+                                <component :is="column.slots?.default" :row="row" />
                             </div>
                         </div>
                     </div>

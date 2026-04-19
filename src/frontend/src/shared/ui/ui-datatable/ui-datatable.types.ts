@@ -8,7 +8,7 @@ export interface PropTypes {
     keyField: string;
     maxVisibleRows?: number;
     rowHeight: number;
-    data: Record<string, unknown>[];
+    rows: Record<string, unknown>[];
 }
 
 export type Emits = (e: 'load-more', options: LazyOptions) => void;

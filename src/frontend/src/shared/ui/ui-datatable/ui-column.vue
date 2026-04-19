@@ -6,7 +6,7 @@ const { field, header } = defineProps<DatatableColumn>();
 const register = inject<RegisterColumn>(Injections.RegisterColumn);
 
 const slots = defineSlots<{
-    default(props: { rowKey: string }): any;
+    default(props: { row: Record<string, unknown> }): any;
 }>();
 
 onMounted(() => {

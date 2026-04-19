@@ -4,4 +4,4 @@ namespace Application.SaveFiles.List;
 
 public sealed record ListSaveFilesResult(IEnumerable<SaveFileDto> SaveFiles);
 
-public sealed record SaveFileDto(Guid Id, DateTime UploadedAt, SaveFileState State);
+public sealed record SaveFileDto(Guid Id, string FileName, DateTime UploadedAt, SaveFileState State);

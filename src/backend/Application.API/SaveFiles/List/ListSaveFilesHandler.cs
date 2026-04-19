@@ -11,7 +11,9 @@ public sealed class ListSaveFilesHandler(IReadOnlyDataContext readOnlyDataContex
     {
         var saveFiles = await readOnlyDataContext.SaveFiles
             .Where(x => x.UserId == query.UserId)
-            .Select(x => new SaveFileDto(x.Id, x.CreatedAt, x.State))
+            .Take(query.Limit)
+            .Skip((int)query.Offset)
+            .Select(x => new SaveFileDto(x.Id, x.FileName, x.CreatedAt, x.State))
             .ToArrayAsync(cancellationToken);
 
         return new ListSaveFilesResult(saveFiles);

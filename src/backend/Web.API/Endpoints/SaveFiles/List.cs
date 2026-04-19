@@ -10,10 +10,12 @@ internal sealed class List : IEndpoint
     {
         app.MapGet(ListSaveFilesQuery.Path, async (
                 HttpContext httpContext,
+                uint offset,
+                ushort limit,
                 [FromServices] ListSaveFilesHandler handler,
                 CancellationToken cancellationToken) =>
             {
-                var query = new ListSaveFilesQuery(httpContext.GetUserId());
+                var query = new ListSaveFilesQuery(httpContext.GetUserId(), offset, limit);
                 var result = await handler.Handle(query, cancellationToken);
                 return result.Match(Results.Ok, CustomResults.Problem);
             })

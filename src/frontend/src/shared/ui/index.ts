@@ -6,3 +6,5 @@ export { default as UiButton } from './ui-button/ui-button.vue';
 export { default as UiProperty } from './ui-property/ui-property.vue';
 export { default as UiSelect } from './ui-select/ui-select.vue';
 export { default as UiForm } from './ui-form/ui-form.vue';
+export { default as UiColumn } from './ui-datatable/ui-column.vue';
+export { default as UiDatatable } from './ui-datatable/ui-datatable.vue';

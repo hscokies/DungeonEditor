@@ -11,15 +11,16 @@ const props = defineProps<{
 </template>
 
 <style scoped lang="scss">
+@use 'src/shared/ui/utils' as utils;
+
 .ui-icon-button {
     all: unset;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    color: var(--ui-icon-button-color);
 
-    &__icon {
-        color: var(--ui-icon-button-color, currentColor);
-    }
+    @include utils.transitions(color);
 }
 </style>

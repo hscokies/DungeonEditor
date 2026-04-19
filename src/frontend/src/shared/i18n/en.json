@@ -23,7 +23,26 @@
             }
         },
         "Uploads": {
-            "Title": "Save file uploads"
+            "Title": "Save file uploads",
+            "Labels": {
+                "Title": "Save Files",
+                "Subtitle": "Manage uploaded save files",
+                "FileName": "File name",
+                "UploadedAt": "Uploaded At",
+                "State": "State",
+                "Actions": "Actions",
+                "Delete": "Delete save file",
+                "DeleteConfirmation": "Are you sure you want to delete this file?",
+                "Edit": "Edit save file",
+                "Info": {
+                    "Failed": "Unable to locate any dungeons in uploaded save file",
+                    "Error": "Something went wrong during save file processing, try again later"
+                }
+            }
+        },
+        "Transactions": {
+            "Title": "Transactions",
+            "Labels": {}
         }
     },
     "Navbar": {

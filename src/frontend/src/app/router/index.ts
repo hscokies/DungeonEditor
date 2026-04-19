@@ -45,6 +45,14 @@ export const router = createRouter({
                 title: i18n.global.t('Pages.Uploads.Title'),
             },
         },
+        {
+            path: '/transactions',
+            name: Routes.Transactions,
+            component: UploadsPage, // todo
+            meta: {
+                title: i18n.global.t('Pages.Transactions.Title'),
+            },
+        },
     ],
 });
 

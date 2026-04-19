@@ -2401,7 +2401,7 @@ __metadata:
     vue-i18n: "npm:11.2.8"
     vue-router: "npm:^4.6.4"
     vue-tsc: "npm:^3.2.2"
-    vue-virtual-scroller: "npm:^2.0.0"
+    vue-virtual-scroller: "npm:^2.0.1"
   languageName: unknown
   linkType: soft
 
@@ -5445,14 +5445,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vue-virtual-scroller@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "vue-virtual-scroller@npm:2.0.0"
+"vue-virtual-scroller@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "vue-virtual-scroller@npm:2.0.1"
   dependencies:
     mitt: "npm:^2.1.0"
   peerDependencies:
     vue: ^3.3.0
-  checksum: 10c0/ac1669cfdfd89def01bbf17606b0c87bfb264c10fda10e4c0e372e1c552f2ceeb5f7a34c17f831a930e93ead0eb50dbaf54223cdf9d58959aa997b62bab9aca6
+  checksum: 10c0/0bd8f2316c243b5414f22d5b3b5dbc8dd9557cf5ac85573cb5667593ec41fe7a9bea5450c83e8c7ceaf877868da3317b70a65c58edf6f67123953fb0e8992d5a
   languageName: node
   linkType: hard
 

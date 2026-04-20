@@ -1,4 +1,4 @@
-import type { SaveFileState } from '@/features/uploads/model/types.ts';
+import type { SaveFileState } from '@/features/view-uploads/model/types.ts';
 
 export interface ListSaveFilesResponse {
     saveFiles: {

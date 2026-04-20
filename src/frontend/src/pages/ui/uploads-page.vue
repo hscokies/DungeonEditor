@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import Page from './page.vue';
-import { Uploads } from '@/features';
+import { ViewUploads } from '@/features';
 </script>
 
 <template>
     <page>
         <template #default>
             <div :class="$cn()">
-                <uploads />
+                <view-uploads />
             </div>
         </template>
     </page>

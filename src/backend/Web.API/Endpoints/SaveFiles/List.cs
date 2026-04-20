@@ -10,7 +10,7 @@ internal sealed class List : IEndpoint
     {
         app.MapGet(ListSaveFilesQuery.Path, async (
                 HttpContext httpContext,
-                uint offset,
+                ushort offset,
                 ushort limit,
                 [FromServices] ListSaveFilesHandler handler,
                 CancellationToken cancellationToken) =>

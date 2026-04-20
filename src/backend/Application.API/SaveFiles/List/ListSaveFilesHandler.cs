@@ -12,7 +12,7 @@ public sealed class ListSaveFilesHandler(IReadOnlyDataContext readOnlyDataContex
         var saveFiles = await readOnlyDataContext.SaveFiles
             .Where(x => x.UserId == query.UserId)
             .Take(query.Limit)
-            .Skip((int)query.Offset)
+            .Skip(query.Offset)
             .Select(x => new SaveFileDto(x.Id, x.FileName, x.CreatedAt, x.State))
             .ToArrayAsync(cancellationToken);
 

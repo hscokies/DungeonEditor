@@ -11,6 +11,7 @@ import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 const rows = ref<SaveFile[]>([]);
 const keyFiled: keyof SaveFile = 'id';
+const batchSize = 50;
 
 async function loadData(options: LazyOptions) {
     const data = await SaveFileApi.list(options.offset, options.limit);
@@ -42,7 +43,7 @@ function isFailed(state: SaveFileState) {
 
 onMounted(() => {
     if (!rows.value.length) {
-        loadData({ offset: 0, limit: 0 });
+        loadData({ offset: 0, limit: batchSize });
     }
 });
 </script>
@@ -53,7 +54,14 @@ onMounted(() => {
             <h1 :class="$cn('title')">{{ $t('Pages.Uploads.Labels.Title') }}</h1>
             <p :class="$cn('subtitle')">{{ $t('Pages.Uploads.Labels.Subtitle') }}</p>
         </div>
-        <ui-datatable ref="datatable" :key-field="keyFiled" :row-height="32" :rows="rows" @load-more="loadData">
+        <ui-datatable
+            ref="datatable"
+            :key-field="keyFiled"
+            :row-height="32"
+            :rows="rows"
+            @load-more="loadData"
+            :max-visible-rows="batchSize"
+        >
             <ui-column field="fileName" :header="$t('Pages.Uploads.Labels.FileName')" />
             <ui-column :header="$t('Pages.Uploads.Labels.UploadedAt')">
                 <template v-slot:default="{ row }">

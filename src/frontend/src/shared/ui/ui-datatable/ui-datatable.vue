@@ -96,14 +96,15 @@ provide(Injections.RegisterColumn, (column: DatatableColumn) => {
     $root: &;
 
     min-width: 100%;
-    width: var(--ui-datatable-width);
+    overflow-x: auto;
 
     &__scroller {
         max-height: var(--ui-datatable-max-height);
     }
 
     &__content {
-        overflow-x: auto;
+        width: 100%;
+        min-width: var(--ui-datatable-width);
     }
 
     &__row {

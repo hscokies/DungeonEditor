@@ -103,7 +103,9 @@ onMounted(() => {
 @use 'src/shared/ui/typography' as typography;
 @use 'src/shared/ui/spacing' as spacing;
 
-.uploads {
+.view-uploads {
+    --ui-datatable-width: 900px;
+
     &__header {
         display: flex;
         flex-flow: column nowrap;

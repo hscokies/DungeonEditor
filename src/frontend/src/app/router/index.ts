@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import { LoginPage, RegisterPage, UploadPage, UploadsPage } from '@/pages/ui';
+import { LoginPage, RegisterPage, TransactionsPage, UploadPage, UploadsPage } from '@/pages/ui';
 import { i18n } from '@/shared/i18n';
 
 export enum Routes {
@@ -48,7 +48,7 @@ export const router = createRouter({
         {
             path: '/transactions',
             name: Routes.Transactions,
-            component: UploadsPage, // todo
+            component: TransactionsPage,
             meta: {
                 title: i18n.global.t('Pages.Transactions.Title'),
             },

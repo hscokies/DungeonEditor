@@ -42,7 +42,13 @@
         },
         "Transactions": {
             "Title": "Transactions",
-            "Labels": {}
+            "Labels": {
+                "Title": "Transactions",
+                "Subtitle": "View transactions on account",
+                "CreatedAt": "Date",
+                "Description": "Description",
+                "Amount": "Amount"
+            }
         }
     },
     "Navbar": {

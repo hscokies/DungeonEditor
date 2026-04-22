@@ -12,7 +12,9 @@ function className(blockName: string, ...args: unknown[]): string[] {
     blockName = toKebabCase(blockName);
 
     const [arg1, arg2] = args;
-    if (!arg1) return [blockName];
+    if (!arg1) {
+        return [blockName];
+    }
 
     let elementName: string | undefined;
     let modifiers: ClassNameModifiers | undefined;
@@ -40,7 +42,8 @@ function className(blockName: string, ...args: unknown[]): string[] {
                 if (!value) continue;
                 className += `--${modifierName}`;
             } else {
-                className += `--${modifierName}-${value}`;
+                const formattedValue = typeof value === 'string' ? toKebabCase(value) : value;
+                className += `--${modifierName}-${formattedValue}`;
             }
 
             classNames.push(className);

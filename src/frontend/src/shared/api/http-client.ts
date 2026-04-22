@@ -1,5 +1,7 @@
 import { router, Routes } from '@/app/router';
 
+const ISO8601 = /^\d{4}-\d{2}-\d{2}(?:[T\s]\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+\-]\d{2}:\d{2})?)?$/;
+
 enum HTTP_METHOD {
     GET = 'GET',
     POST = 'POST',
@@ -26,6 +28,17 @@ class HttpClient {
         return `${path}?${searchParams}`;
     }
 
+    private async parseJson(response: Response) {
+        const content = await response.text();
+        return JSON.parse(content, (key, value) => {
+            if (typeof value === 'string' && ISO8601.test(value)) {
+                return new Date(value);
+            }
+
+            return value;
+        });
+    }
+
     public async sendRequest(request: HttpRequest) {
         const response = await fetch(request.path, request.options);
         if (response.status === 401) {
@@ -43,7 +56,7 @@ class HttpClient {
             },
         });
 
-        const data = await response.json();
+        const data = await this.parseJson(response);
         if (!response.ok) {
             throw data;
         }
@@ -64,7 +77,7 @@ class HttpClient {
         });
 
         if (!response.ok) {
-            throw await response.json();
+            throw await this.parseJson(response);
         }
 
         return undefined;
@@ -80,7 +93,7 @@ class HttpClient {
         });
 
         if (!response.ok) {
-            throw await response.json();
+            throw await this.parseJson(response);
         }
 
         return undefined;

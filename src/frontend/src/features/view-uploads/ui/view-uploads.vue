@@ -2,8 +2,7 @@
 import { UiColumn, UiDatatable, UiIconButton, UiSpinner } from '@/shared/ui';
 import type { LazyOptions } from '@/shared/ui/ui-datatable/ui-datatable.types.ts';
 import { onMounted, ref } from 'vue';
-import { SaveFileApi } from '@/entities/save-file/api/save-file-api.ts';
-import { type SaveFile, SaveFileState } from '@/features/view-uploads/model/types.ts';
+import { type SaveFile, SaveFileApi, SaveFileState } from '@/entities/save-file';
 import { Info, Pencil, Trash2 } from '@lucide/vue';
 import { IconSize } from '@/shared/types/icon-size.ts';
 import { useI18n } from 'vue-i18n';
@@ -15,13 +14,7 @@ const batchSize = 50;
 
 async function loadData(options: LazyOptions) {
     const data = await SaveFileApi.list(options.offset, options.limit);
-    rows.value = [
-        ...rows.value,
-        ...data.saveFiles.map(sf => ({
-            ...sf,
-            uploadedAt: new Date(sf.uploadedAt),
-        })),
-    ];
+    rows.value = [...rows.value, ...data.saveFiles];
 }
 
 async function removeSaveFile(id: string) {

@@ -53,6 +53,18 @@ export const router = createRouter({
                 title: i18n.global.t('Pages.Transactions.Title'),
             },
         },
+        {
+            path: '/',
+            redirect: {
+                name: Routes.Uploads,
+            },
+        },
+        {
+            path: '/:pathMatch(.*)*',
+            redirect: {
+                name: Routes.Uploads,
+            },
+        },
     ],
 });
 

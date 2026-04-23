@@ -10,8 +10,8 @@ internal sealed class UserEntityConfiguration : IEntityTypeConfiguration<User>
     public void Configure(EntityTypeBuilder<User> builder)
     {
         builder.HasKey(x => x.Id);
-        builder.HasMany<IdentityUserRole<Guid>>()
-            .WithOne()
-            .HasForeignKey(ur => ur.UserId);
+        builder.HasMany(x => x.Roles)
+            .WithMany()
+            .UsingEntity<IdentityUserRole<Guid>>();
     }
 }

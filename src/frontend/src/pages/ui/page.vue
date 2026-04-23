@@ -112,6 +112,7 @@ onMounted(() => {
 
     &__content {
         height: 100%;
+        overflow-y: auto;
     }
 
     &__actions {

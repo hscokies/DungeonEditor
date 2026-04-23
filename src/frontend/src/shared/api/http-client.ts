@@ -47,6 +47,7 @@ class HttpClient {
         const response = await fetch(request.path, request.options);
         if (response.status === 401) {
             await router.replace({ name: Routes.Login });
+            throw new Error('Redirecting...');
         }
 
         return response;

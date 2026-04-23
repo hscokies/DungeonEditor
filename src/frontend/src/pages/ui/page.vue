@@ -1,12 +1,15 @@
 <script setup lang="ts">
-import { Files, LogOut as Logout, ScrollTextIcon as Scrolltext, Upload } from '@lucide/vue';
+import { Coins, Files, LogOut as Logout, ScrollTextIcon as Scrolltext, Upload } from '@lucide/vue';
 import { router, Routes } from '@/app/router';
 import { useI18n } from 'vue-i18n';
 import { AccountApi } from '@/entities/account/api/account-api.ts';
-import { useLock } from '@/shared/hooks';
+import { useAuth, useLock } from '@/shared/hooks';
+import { onMounted } from 'vue';
+import { UiSpinner } from '@/shared/ui';
 
 const { t } = useI18n();
 const { locked, lock, release } = useLock();
+const { authorized, user, fetch } = useAuth();
 
 const links = [
     {
@@ -27,18 +30,24 @@ const links = [
 ];
 
 async function handleLogout() {
-    if (locked) {
+    if (locked.value) {
         return;
     }
 
     lock();
     try {
-        await AccountApi.logout();
         await router.replace({ name: Routes.Login });
+        await AccountApi.logout();
     } finally {
         release();
     }
 }
+
+onMounted(() => {
+    if (!authorized.value) {
+        fetch();
+    }
+});
 </script>
 
 <template>
@@ -62,6 +71,11 @@ async function handleLogout() {
                 </nav>
             </div>
             <div :class="$cn('actions')">
+                <div :class="$cn('balance')">
+                    {{ user?.balance }}
+                    <ui-spinner v-if="!user" :size="12" :thickness="2" />
+                    <coins :size="12" />
+                </div>
                 <a :class="$cn('link')" @click="handleLogout">
                     <logout :size="12" />
                     {{ $t('Common.SignOut') }}
@@ -143,6 +157,16 @@ async function handleLogout() {
         &--active {
             background-color: colors.$surface-element-1;
         }
+    }
+
+    &__balance {
+        color: colors.$cpt-peach;
+        display: inline-flex;
+        align-items: center;
+        gap: spacing.$spacing-1-5;
+        border-radius: border-radius.$border-radius-md;
+        user-select: none;
+        pointer-events: none;
     }
 }
 </style>

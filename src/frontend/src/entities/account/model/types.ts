@@ -5,3 +5,10 @@ export interface AuthRequest {
 
 export type RegisterRequest = AuthRequest;
 export type LoginRequest = AuthRequest;
+
+export interface User {
+    id: string;
+    username: string;
+    balance: number;
+    isAdmin: boolean;
+}

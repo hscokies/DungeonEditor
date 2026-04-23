@@ -22,7 +22,11 @@ interface HttpGetRequest {
 type HttpRequest = HttpGetRequest;
 
 class HttpClient {
-    private relativeUrl(path: string, query: Record<string, unknown>) {
+    private relativeUrl(path: string, query?: Record<string, unknown>) {
+        if (!query) {
+            return path;
+        }
+
         // @ts-ignore
         const searchParams = new URLSearchParams(query);
         return `${path}?${searchParams}`;
@@ -48,7 +52,7 @@ class HttpClient {
         return response;
     }
 
-    public async get<TResult>(path: string, query: Record<string, unknown>): Promise<TResult> {
+    public async get<TResult>(path: string, query?: Record<string, unknown>): Promise<TResult> {
         const response = await this.sendRequest({
             path: this.relativeUrl(path, query),
             options: {

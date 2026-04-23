@@ -11,10 +11,12 @@ internal sealed class Transactions : IEndpoint
     {
         app.MapGet(GetTransactionsQuery.Path, async (
                 HttpContext httpContext,
+                ushort offset,
+                ushort limit,
                 [FromServices] GetTransactionsHandler handler,
                 CancellationToken cancellationToken) =>
             {
-                var query = new GetTransactionsQuery(httpContext.GetUserId());
+                var query = new GetTransactionsQuery(httpContext.GetUserId(), offset, limit);
                 var result = await handler.Handle(query, cancellationToken);
 
                 return result.Match(Results.Ok, CustomResults.Problem);

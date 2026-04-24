@@ -60,6 +60,8 @@ onMounted(() => {
 @use 'src/shared/ui/colors' as colors;
 
 .view-transactions {
+    --ui-datatable-width: 700px;
+
     &__amount {
         &--type-inbound {
             color: colors.$success;

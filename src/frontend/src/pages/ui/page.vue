@@ -1,15 +1,21 @@
 <script setup lang="ts">
-import { Coins, Files, LogOut as Logout, ScrollTextIcon as Scrolltext, Upload } from '@lucide/vue';
+import { ArrowUp, Coins, Files, LogOut as Logout, ScrollTextIcon as Scrolltext, Upload } from '@lucide/vue';
 import { router, Routes } from '@/app/router';
 import { useI18n } from 'vue-i18n';
 import { AccountApi } from '@/entities/account/api/account-api.ts';
-import { useAuth, useLock } from '@/shared/hooks';
-import { onMounted } from 'vue';
-import { UiSpinner } from '@/shared/ui';
+import { useAuth, useLock, useScroll } from '@/shared/hooks';
+import { computed, onMounted, useTemplateRef } from 'vue';
+import { UiIconButton, UiSpinner } from '@/shared/ui';
+import { IconSize } from '@/shared/types/icon-size.ts';
+
+const contentRef = useTemplateRef('content');
 
 const { t } = useI18n();
 const { locked, lock, release } = useLock();
 const { authorized, user, fetch } = useAuth();
+const { y } = useScroll(contentRef);
+
+const contentScrolled = computed(() => y.value > 0);
 
 const links = [
     {
@@ -43,6 +49,10 @@ async function handleLogout() {
     }
 }
 
+function scrollTop() {
+    contentRef.value?.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 onMounted(() => {
     if (!authorized.value) {
         fetch();
@@ -65,7 +75,7 @@ onMounted(() => {
                         :active-class="$cn('link', { active: true })[1]"
                         :to="link.route"
                     >
-                        <component :is="link.icon" :size="12" />
+                        <component :is="link.icon" :size="IconSize.xss" />
                         {{ link.label }}
                     </router-link>
                 </nav>
@@ -73,16 +83,24 @@ onMounted(() => {
             <div :class="$cn('actions')">
                 <div :class="$cn('balance')">
                     {{ user?.balance }}
-                    <ui-spinner v-if="!user" :size="12" :thickness="2" />
-                    <coins :size="12" />
+                    <ui-spinner v-if="!user" :size="IconSize.xss" :thickness="2" />
+                    <coins :size="IconSize.xss" />
                 </div>
                 <a :class="$cn('link')" @click="handleLogout">
-                    <logout :size="12" />
+                    <logout :size="IconSize.xss" />
                     {{ $t('Common.SignOut') }}
                 </a>
             </div>
         </div>
-        <div :class="$cn('content')">
+        <div :class="$cn('content')" ref="content">
+            <ui-icon-button
+                v-show="contentScrolled"
+                :class="$cn('scroll-top')"
+                :label="$t('Common.ScrollTop')"
+                @click="scrollTop"
+            >
+                <arrow-up :size="IconSize.md" />
+            </ui-icon-button>
             <slot />
         </div>
     </div>
@@ -95,6 +113,7 @@ onMounted(() => {
 @use 'src/shared/ui/utils' as utils;
 @use 'src/shared/ui/border-radius' as border-radius;
 @use 'src/shared/ui/variables' as variables;
+@use 'src/shared/ui/z-index' as z-index;
 
 .page {
     display: flex;
@@ -168,6 +187,22 @@ onMounted(() => {
         border-radius: border-radius.$border-radius-md;
         user-select: none;
         pointer-events: none;
+    }
+
+    &__scroll-top {
+        position: absolute;
+        right: 1em;
+        bottom: 1.5em;
+        background: colors.$surface-element-2;
+        padding: spacing.$spacing-2;
+        border-radius: border-radius.$border-radius-full;
+        z-index: z-index.$scroll-top-button;
+
+        @include utils.transitions(background);
+
+        &:hover {
+            background: colors.$surface-element-1;
+        }
     }
 }
 </style>

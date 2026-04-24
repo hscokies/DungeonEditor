@@ -66,6 +66,7 @@
         "SignOut": "Sign out",
         "Or": "Or",
         "BrowseFiles": "Browse Files",
+        "ScrollTop": "Scroll to the top",
         "Units": {
             "Byte": {
                 "Short": "B"

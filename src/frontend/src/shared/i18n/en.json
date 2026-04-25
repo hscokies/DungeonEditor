@@ -49,12 +49,23 @@
                 "Description": "Description",
                 "Amount": "Amount"
             }
+        },
+        "Users": {
+            "Title": "Users",
+            "Labels": {
+                "Title": "Users",
+                "Subtitle": "View and manage users balance",
+                "Username": "Username",
+                "Balance": "Balance",
+                "Actions": "Actions"
+            }
         }
     },
     "Navbar": {
         "Uploads": "Uploads",
         "Upload": "Upload",
-        "Transactions": "Transactions"
+        "Transactions": "Transactions",
+        "Users": "Users"
     },
     "Common": {
         "ProjectName": "Bloodborne Dungeon Editor",
@@ -77,7 +88,8 @@
             "Megabyte": {
                 "Short": "MB"
             }
-        }
+        },
+        "Apply": "Apply"
     },
     "Accessibility": {
         "ToggleDropdown": "Toggle dropdown"

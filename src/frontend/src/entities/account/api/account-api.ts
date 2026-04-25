@@ -1,4 +1,4 @@
-import type { LoginRequest, RegisterRequest, User } from '@/entities/account/model/types.ts';
+import type { ListUsersResponse, LoginRequest, RegisterRequest, User } from '@/entities/account/model/types.ts';
 import { httpClient } from '@/shared/api/http-client.ts';
 
 export class AccountApi {
@@ -16,5 +16,13 @@ export class AccountApi {
 
     public static get() {
         return httpClient.get<User>('/api/users/me');
+    }
+
+    public static list(offset: number, limit: number) {
+        return httpClient.get<ListUsersResponse>('/api/users', { offset, limit });
+    }
+
+    public static setBalance(id: string, balance: number) {
+        return httpClient.patch(`/api/users/${id}`, { balance });
     }
 }

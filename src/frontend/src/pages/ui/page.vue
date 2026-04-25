@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ArrowUp, Coins, Files, LogOut as Logout, ScrollTextIcon as Scrolltext, Upload } from '@lucide/vue';
+import { ArrowUp, Coins, Files, LogOut as Logout, ScrollTextIcon as Scrolltext, Upload, Users } from '@lucide/vue';
 import { router, Routes } from '@/app/router';
 import { useI18n } from 'vue-i18n';
 import { AccountApi } from '@/entities/account/api/account-api.ts';
@@ -15,25 +15,36 @@ const { locked, lock, release } = useLock();
 const { authorized, user, fetch } = useAuth();
 const { y } = useScroll(contentRef);
 
-const contentScrolled = computed(() => y.value > 0);
-
 const links = [
     {
         route: Routes.Upload,
         icon: Upload,
         label: t('Navbar.Upload'),
+        admin: false,
     },
     {
         route: Routes.Uploads,
         icon: Files,
         label: t('Navbar.Uploads'),
+        admin: false,
     },
     {
         route: Routes.Transactions,
         icon: Scrolltext,
         label: t('Navbar.Transactions'),
+        admin: false,
+    },
+    {
+        route: Routes.Users,
+        icon: Users,
+        label: t('Navbar.Users'),
+        admin: true,
     },
 ];
+
+const visibleLinks = computed(() => links.filter(x => (user.value && user.value.admin) || !x.admin));
+
+const contentScrolled = computed(() => y.value > 0);
 
 async function handleLogout() {
     if (locked.value) {
@@ -69,7 +80,7 @@ onMounted(() => {
                 </span>
                 <nav :class="$cn('navigation')">
                     <router-link
-                        v-for="link in links"
+                        v-for="link in visibleLinks"
                         :key="link.route"
                         :class="$cn('link')"
                         :active-class="$cn('link', { active: true })[1]"

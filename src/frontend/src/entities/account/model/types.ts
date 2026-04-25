@@ -10,5 +10,9 @@ export interface User {
     id: string;
     username: string;
     balance: number;
-    isAdmin: boolean;
+    admin?: boolean;
+}
+
+export interface ListUsersResponse {
+    users: User[];
 }

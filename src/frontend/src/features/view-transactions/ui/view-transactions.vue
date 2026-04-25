@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { UiColumn, UiDatatable } from '@/shared/ui';
 import { onMounted, ref } from 'vue';
-import { type Transaction, TransactionType } from '@/entities/transactions/model/types.ts';
+import { type Transaction, TransactionType } from '@/entities/transaction/model/types.ts';
 import type { LazyOptions } from '@/shared/ui/ui-datatable/ui-datatable.types.ts';
-import { TransactionsApi } from '@/entities/transactions/api/transactions-api.ts';
+import { TransactionsApi } from '@/entities/transaction/api/transactions-api.ts';
 
 const rows = ref<Transaction[]>([]);
 const keyFiled: keyof Transaction = 'id';

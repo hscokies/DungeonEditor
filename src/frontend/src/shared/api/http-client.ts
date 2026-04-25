@@ -84,8 +84,6 @@ class HttpClient {
         if (!response.ok) {
             throw await this.parseJson(response);
         }
-
-        return undefined;
     }
 
     public async postForm(path: string, data: FormData): Promise<void> {
@@ -100,8 +98,23 @@ class HttpClient {
         if (!response.ok) {
             throw await this.parseJson(response);
         }
+    }
 
-        return undefined;
+    public async patch<TRequest = Record<string, unknown>>(path: string, body: TRequest) {
+        const response = await this.sendRequest({
+            path,
+            options: {
+                method: HTTP_METHOD.PATCH,
+                headers: {
+                    'Content-Type': CONTENT_TYPE.JSON,
+                },
+                body: JSON.stringify(body),
+            },
+        });
+
+        if (!response.ok) {
+            throw await this.parseJson(response);
+        }
     }
 
     public async delete(path: string) {

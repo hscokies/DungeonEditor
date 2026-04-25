@@ -78,6 +78,9 @@
         "Or": "Or",
         "BrowseFiles": "Browse Files",
         "ScrollTop": "Scroll to the top",
+        "OpenMenu": "Open menu",
+        "CloseMenu": "Close menu",
+        "Balance": "Balance",
         "Units": {
             "Byte": {
                 "Short": "B"

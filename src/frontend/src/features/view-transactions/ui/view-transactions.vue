@@ -1,28 +1,52 @@
 <script setup lang="ts">
 import { UiColumn, UiDatatable } from '@/shared/ui';
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 import { type Transaction, TransactionType } from '@/entities/transaction/model/types.ts';
 import type { LazyOptions } from '@/shared/ui/ui-datatable/ui-datatable.types.ts';
 import { TransactionsApi } from '@/entities/transaction/api/transactions-api.ts';
+import { useLock } from '@/shared/hooks';
+
+const { locked, lock, release } = useLock();
 
 const rows = ref<Transaction[]>([]);
 const keyFiled: keyof Transaction = 'id';
 const batchSize = 50;
 
+async function loadMore(options: LazyOptions) {
+    if (locked.value) {
+        return;
+    }
+
+    lock();
+    try {
+        const data = await load(options);
+        rows.value = [...rows.value, ...data.transactions];
+    } finally {
+        release();
+    }
+}
+
 async function loadData(options: LazyOptions) {
-    const data = await TransactionsApi.list(options.offset, options.limit);
-    rows.value = [...rows.value, ...data.transactions];
+    if (locked.value) {
+        return;
+    }
+
+    lock();
+    try {
+        const data = await load(options);
+        rows.value = data.transactions;
+    } finally {
+        release();
+    }
+}
+
+function load(options: LazyOptions) {
+    return TransactionsApi.list(options.offset, options.limit);
 }
 
 function formatAmount(amount: number, type: TransactionType) {
     return type === TransactionType.Inbound ? `+${amount}` : `-${amount}`;
 }
-
-onMounted(() => {
-    if (!rows.value.length) {
-        loadData({ offset: 0, limit: batchSize });
-    }
-});
 </script>
 
 <template>
@@ -36,8 +60,10 @@ onMounted(() => {
             :key-field="keyFiled"
             :row-height="32"
             :rows="rows"
-            @load-more="loadData"
             :max-visible-rows="batchSize"
+            :loading="locked"
+            @load-more="loadMore"
+            @load="loadData"
         >
             <ui-column :header="$t('Pages.Transactions.Labels.CreatedAt')">
                 <template v-slot:default="{ row }">

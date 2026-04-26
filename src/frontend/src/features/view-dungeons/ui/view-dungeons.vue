@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
-import { computed, onMounted, ref } from 'vue';
+import { computed, ref } from 'vue';
 import { type DungeonPreview, JoinRequirement } from '@/entities/dungeon/model/types.ts';
 import { SaveFileApi } from '@/entities/save-file';
 import { useI18n } from 'vue-i18n';
@@ -10,9 +10,11 @@ import { FileCog, Pencil } from '@lucide/vue';
 import { IconSize } from '@/shared/types/icon-size.ts';
 import { toKebabCase } from '@/shared/utils/string.ts';
 import { getFileNameWithoutExtension } from '@/shared/utils/file.ts';
+import { useLock } from '@/shared/hooks';
 
 const route = useRoute();
 const { t } = useI18n();
+const { locked, lock, release } = useLock();
 
 const placeholderAsset = 'сhalice-placeholder';
 
@@ -39,6 +41,23 @@ const id = computed(() => {
     return parameter;
 });
 
+async function loadData() {
+    if (locked.value) {
+        return;
+    }
+
+    lock();
+    try {
+        const response = await SaveFileApi.get(id.value);
+        rows.value = response.dungeons;
+    } catch (error) {
+        await router.replace({ name: Routes.Uploads });
+        throw error;
+    } finally {
+        release();
+    }
+}
+
 function getIcon(id: number) {
     const fileName = toKebabCase(JoinRequirement[id]!);
     return icons[fileName] || icons[placeholderAsset];
@@ -59,16 +78,6 @@ async function compile() {
 function editDungeon(id: string) {
     //  todo
 }
-
-onMounted(async () => {
-    try {
-        const response = await SaveFileApi.get(id.value);
-        rows.value = response.dungeons;
-    } catch (error) {
-        await router.replace({ name: Routes.Uploads });
-        throw error;
-    }
-});
 </script>
 
 <template>
@@ -86,7 +95,7 @@ onMounted(async () => {
                 </ui-button>
             </div>
         </div>
-        <ui-datatable :key-field="keyFiled" :row-height="64" :rows="rows">
+        <ui-datatable :key-field="keyFiled" :row-height="64" :rows="rows" :loading="locked" @load="loadData">
             <ui-column :header="$t('Pages.SaveFile.Labels.Dungeon')">
                 <template v-slot:default="{ row }">
                     <img :class="$cn('icon')" :src="getIcon(row.joinRequirement as number)" alt="alt" />

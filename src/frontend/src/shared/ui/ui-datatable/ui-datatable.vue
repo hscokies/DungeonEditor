@@ -3,11 +3,20 @@ import 'vue-virtual-scroller/dist/vue-virtual-scroller.css';
 import { computed, onMounted, provide, ref } from 'vue';
 import { type DatatableColumn, type Emits, Injections, type PropTypes } from './ui-datatable.types.ts';
 import { RecycleScroller } from 'vue-virtual-scroller';
-import { UiInput } from '@/shared/ui';
+import { UiInput, UiSpinner } from '@/shared/ui';
 import { useDebounce } from '@/shared/hooks';
+import { IconSize } from '@/shared/types/icon-size.ts';
 
 const emit = defineEmits<Emits>();
-const { keyField, rowHeight, maxVisibleRows = 30, rows, filter = false, filterPlaceholder } = defineProps<PropTypes>();
+const {
+    keyField,
+    rowHeight,
+    maxVisibleRows = 30,
+    rows,
+    filter = false,
+    filterPlaceholder,
+    loading = false,
+} = defineProps<PropTypes>();
 
 const scrollerHeight = computed(() => maxVisibleRows * rowHeight);
 const datatableStyles = computed(() => ({
@@ -106,6 +115,9 @@ provide(Injections.RegisterColumn, (column: DatatableColumn) => {
                     </div>
                 </template>
             </recycle-scroller>
+            <div :class="$cn('footer')">
+                <ui-spinner v-show="loading" :size="IconSize.xl" />
+            </div>
         </div>
     </div>
 </template>
@@ -169,6 +181,14 @@ provide(Injections.RegisterColumn, (column: DatatableColumn) => {
         #{$root}__column-title {
             font-weight: typography.$font-weight-semibold;
         }
+    }
+
+    &__footer {
+        display: grid;
+        place-items: center;
+        width: 100%;
+        height: 5em;
+        margin-top: spacing.$spacing-2;
     }
 }
 </style>

@@ -7,20 +7,40 @@ import { FileDown, Info, Pencil, Trash2 } from '@lucide/vue';
 import { IconSize } from '@/shared/types/icon-size.ts';
 import { useI18n } from 'vue-i18n';
 import { router, Routes } from '@/app/router';
+import { useLock } from '@/shared/hooks';
 
 const { t } = useI18n();
+const { locked, lock, release } = useLock();
 const rows = ref<SaveFile[]>([]);
 const keyFiled: keyof SaveFile = 'id';
 const batchSize = 50;
 
 async function loadMore(options: LazyOptions) {
-    const data = await load(options);
-    rows.value = [...rows.value, ...data.saveFiles];
+    if (locked.value) {
+        return;
+    }
+
+    lock();
+    try {
+        const data = await load(options);
+        rows.value = [...rows.value, ...data.saveFiles];
+    } finally {
+        release();
+    }
 }
 
 async function loadData(options: LazyOptions) {
-    const data = await load(options);
-    rows.value = data.saveFiles;
+    if (locked.value) {
+        return;
+    }
+
+    lock();
+    try {
+        const data = await load(options);
+        rows.value = data.saveFiles;
+    } finally {
+        release();
+    }
 }
 
 function load(options: LazyOptions) {
@@ -62,9 +82,10 @@ function isFailed(state: SaveFileState) {
             :rows="rows"
             filter
             :filter-placeholder="$t('Pages.Uploads.Placeholders.Search')"
+            :max-visible-rows="batchSize"
+            :loading="locked"
             @load-more="loadMore"
             @load="loadData"
-            :max-visible-rows="batchSize"
         >
             <ui-column field="fileName" :header="$t('Pages.Uploads.Labels.FileName')" />
             <ui-column :header="$t('Pages.Uploads.Labels.UploadedAt')">

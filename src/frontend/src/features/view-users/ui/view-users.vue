@@ -6,22 +6,40 @@ import type { LazyOptions } from '@/shared/ui/ui-datatable/ui-datatable.types.ts
 import type { User } from '@/entities/account/model/types.ts';
 import { AccountApi } from '@/entities/account/api/account-api.ts';
 import { IconSize } from '@/shared/types/icon-size.ts';
-import { useI18n } from 'vue-i18n';
+import { useLock } from '@/shared/hooks';
 
-const { t } = useI18n();
+const { locked, lock, release } = useLock();
 
 const rows = ref<User[]>([]);
 const keyFiled: keyof User = 'id';
 const batchSize = 50;
 
 async function loadMore(options: LazyOptions) {
-    const data = await load(options);
-    rows.value = [...rows.value, ...data.users];
+    if (locked.value) {
+        return;
+    }
+
+    lock();
+    try {
+        const data = await load(options);
+        rows.value = [...rows.value, ...data.users];
+    } finally {
+        release();
+    }
 }
 
 async function loadData(options: LazyOptions) {
-    const data = await load(options);
-    rows.value = data.users;
+    if (locked.value) {
+        return;
+    }
+
+    lock();
+    try {
+        const data = await load(options);
+        rows.value = data.users;
+    } finally {
+        release();
+    }
 }
 
 function load(options: LazyOptions) {
@@ -46,9 +64,10 @@ function applyChanges(row: User) {
             :rows="rows"
             filter
             :filter-placeholder="$t('Pages.Users.Placeholders.Search')"
+            :max-visible-rows="batchSize"
+            :loading="locked"
             @load-more="loadMore"
             @load="loadData"
-            :max-visible-rows="batchSize"
         >
             <ui-column :header="$t('Pages.Users.Labels.Username')" field="username" />
             <ui-column :header="$t('Pages.Users.Labels.Balance')">

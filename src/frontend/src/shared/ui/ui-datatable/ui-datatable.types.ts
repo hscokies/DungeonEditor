@@ -10,6 +10,7 @@ export interface PropTypes {
     rowHeight: number;
     filter?: boolean;
     filterPlaceholder?: string;
+    loading?: boolean;
     rows: Record<string, unknown>[];
 }
 

@@ -16,25 +16,25 @@ const burgerMenuVisible = ref(false);
 
 const links = [
     {
-        route: Routes.Upload,
+        route: { name: Routes.Upload },
         icon: Upload,
         label: t('Navbar.Upload'),
         admin: false,
     },
     {
-        route: Routes.Uploads,
+        route: { name: Routes.Uploads },
         icon: Files,
         label: t('Navbar.Uploads'),
         admin: false,
     },
     {
-        route: Routes.Transactions,
+        route: { name: Routes.Transactions },
         icon: Scrolltext,
         label: t('Navbar.Transactions'),
         admin: false,
     },
     {
-        route: Routes.Users,
+        route: { name: Routes.Users },
         icon: Users,
         label: t('Navbar.Users'),
         admin: true,

@@ -68,7 +68,7 @@ onMounted(() => {
             <nav :class="$cn('navigation')">
                 <router-link
                     v-for="link in visibleLinks"
-                    :key="link.route"
+                    :key="link.route.name"
                     :class="$cn('link')"
                     :active-class="$cn('link', { active: true })[1]"
                     :to="link.route"

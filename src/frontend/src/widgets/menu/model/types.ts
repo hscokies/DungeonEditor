@@ -2,7 +2,9 @@ import { Routes } from '@/app/router';
 import type { FunctionalComponent } from 'vue';
 
 interface NavigationLink {
-    route: Routes;
+    route: {
+        name: Routes;
+    };
     icon: FunctionalComponent;
     label: string;
     admin: boolean;

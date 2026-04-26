@@ -3,9 +3,10 @@ import { UiColumn, UiDatatable, UiIconButton, UiSpinner } from '@/shared/ui';
 import type { LazyOptions } from '@/shared/ui/ui-datatable/ui-datatable.types.ts';
 import { onMounted, ref } from 'vue';
 import { type SaveFile, SaveFileApi, SaveFileState } from '@/entities/save-file';
-import { Info, Pencil, Trash2 } from '@lucide/vue';
+import { FileDown, Info, Pencil, Trash2 } from '@lucide/vue';
 import { IconSize } from '@/shared/types/icon-size.ts';
 import { useI18n } from 'vue-i18n';
+import { router, Routes } from '@/app/router';
 
 const { t } = useI18n();
 const rows = ref<SaveFile[]>([]);
@@ -27,7 +28,11 @@ async function removeSaveFile(id: string) {
 }
 
 async function editSaveFile(id: string) {
-    // TODO
+    await router.push({ name: Routes.SaveFile, params: { id } });
+}
+
+async function download(id: string) {
+    SaveFileApi.download(id);
 }
 
 function isFailed(state: SaveFileState) {
@@ -72,11 +77,19 @@ onMounted(() => {
                     <div v-else :class="$cn('actions')">
                         <ui-icon-button
                             v-if="row.state === SaveFileState.Processed"
-                            :class="$cn('edit')"
+                            :class="$cn('action')"
                             :label="$t('Pages.Uploads.Labels.Edit')"
                             @click="editSaveFile(row[keyFiled] as string)"
                         >
                             <pencil :size="IconSize.sm" />
+                        </ui-icon-button>
+                        <ui-icon-button
+                            v-if="row.state === SaveFileState.Processed"
+                            :class="$cn('action')"
+                            :label="$t('Pages.Uploads.Labels.Download')"
+                            @click="download(row[keyFiled] as string)"
+                        >
+                            <file-down :size="IconSize.sm" />
                         </ui-icon-button>
                         <ui-icon-button
                             v-if="row.state === SaveFileState.Processed"
@@ -135,7 +148,7 @@ onMounted(() => {
         }
     }
 
-    &__edit {
+    &__action {
         &:hover {
             --ui-icon-button-color: #{colors.$cursor};
         }

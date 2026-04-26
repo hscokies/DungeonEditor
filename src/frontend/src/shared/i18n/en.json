@@ -1,86 +1,21 @@
 {
-    "Pages": {
-        "Login": {
-            "Title": "Sign in",
-            "Labels": {
-                "Title": "Welcome back!",
-                "DontHaveAccount": "Don't have an account?"
-            }
-        },
-        "Register": {
-            "Title": "Sign up",
-            "Labels": {
-                "Title": " Create account",
-                "AlreadyRegistered": "Already have an account?"
-            }
-        },
-        "Upload": {
-            "Title": "Upload save file",
-            "Labels": {
-                "Title": "Upload save file",
-                "DragNDrop": "Drag and drop your save file here",
-                "Upload": "Upload"
-            }
-        },
-        "Uploads": {
-            "Title": "Save file uploads",
-            "Labels": {
-                "Title": "Save Files",
-                "Subtitle": "Manage uploaded save files",
-                "FileName": "File name",
-                "UploadedAt": "Uploaded At",
-                "State": "State",
-                "Actions": "Actions",
-                "Delete": "Delete save file",
-                "DeleteConfirmation": "Are you sure you want to delete this file?",
-                "Edit": "Edit save file",
-                "Info": {
-                    "Failed": "Unable to locate any dungeons in uploaded save file",
-                    "Error": "Something went wrong during save file processing, try again later"
-                }
-            }
-        },
-        "Transactions": {
-            "Title": "Transactions",
-            "Labels": {
-                "Title": "Transactions",
-                "Subtitle": "View transactions on account",
-                "CreatedAt": "Date",
-                "Description": "Description",
-                "Amount": "Amount"
-            }
-        },
-        "Users": {
-            "Title": "Users",
-            "Labels": {
-                "Title": "Users",
-                "Subtitle": "View and manage users balance",
-                "Username": "Username",
-                "Balance": "Balance",
-                "Actions": "Actions"
-            }
-        }
-    },
-    "Navbar": {
-        "Uploads": "Uploads",
-        "Upload": "Upload",
-        "Transactions": "Transactions",
-        "Users": "Users"
+    "Accessibility": {
+        "ToggleDropdown": "Toggle dropdown"
     },
     "Common": {
-        "ProjectName": "Bloodborne Dungeon Editor",
-        "NoData": "No results",
-        "Username": "Username",
-        "Password": "Password",
-        "SignIn": "Sign in",
-        "SignUp": "Sign up",
-        "SignOut": "Sign out",
-        "Or": "Or",
-        "BrowseFiles": "Browse Files",
-        "ScrollTop": "Scroll to the top",
-        "OpenMenu": "Open menu",
-        "CloseMenu": "Close menu",
+        "Apply": "Apply",
         "Balance": "Balance",
+        "BrowseFiles": "Browse Files",
+        "CloseMenu": "Close menu",
+        "NoData": "No results",
+        "OpenMenu": "Open menu",
+        "Or": "Or",
+        "Password": "Password",
+        "ProjectName": "Bloodborne Dungeon Editor",
+        "ScrollTop": "Scroll to the top",
+        "SignIn": "Sign in",
+        "SignOut": "Sign out",
+        "SignUp": "Sign up",
         "Units": {
             "Byte": {
                 "Short": "B"
@@ -92,31 +27,224 @@
                 "Short": "MB"
             }
         },
-        "Apply": "Apply"
+        "Username": "Username"
     },
-    "Accessibility": {
-        "ToggleDropdown": "Toggle dropdown"
+    "Dungeons": {
+        "JoinRequirements": {
+            "CentralPthumeru": "Pthumeru (2)",
+            "CentralPthumeruRoot": "Pthumeru Root (2)",
+            "CharacterDebug1": "For character debug 1",
+            "CharacterDebug2": "Chara debugging 2",
+            "DefiledPthumeru": "Curse Pthumeru (4)",
+            "DefiledPthumeruRoot": "Curse Pthumeru Root (4)",
+            "Hintertomb": "Hintertomb (2)",
+            "HintertombRoot": "Hintertomb Root (2)",
+            "Isz": "Isz (5)",
+            "Isz6": "Isz (6)",
+            "Isz6RootDefiled": "Curse Isz Root (7)",
+            "Isz7Root": "Terrible Curse Isz Root (7)",
+            "Isz7RootDefiled": "Curse Isz Root (7)",
+            "Isz7SinisterRoot": "Sinister Isz Root (7)",
+            "IszRoot": "Isz Root (5)",
+            "IszRootSinister": "Sinister Isz Root (5)",
+            "Loran": "Loran (4)",
+            "Loran6": "Loran (6)",
+            "Loran6RootDefiled": "Curse Loran Root (6)",
+            "Loran7RootDefiled": "Curse Loran Root (7)",
+            "Loran7RootTerribleCurse": "Terrible Curse Loran Root (7)",
+            "Loran7SinisterRoot": "Sinister Loran Root (7)",
+            "LoranRoot": "Loran Root (4)",
+            "LowerHintertomb": "Hintertomb (3)",
+            "LowerHintertombRoot": "Hintertomb Root (3)",
+            "LowerHintertombRootSinister": "Sinister Hintertomb Root (3)",
+            "LowerLoran": "Loran (5)",
+            "LowerLoranRoot": "Loran Root (5)",
+            "LowerLoranSinister": "Sinister Loran Root (5)",
+            "LowerPthumeru": "Pthumeru (3)",
+            "LowerPthumeruRoot": "Pthumeru Root (3)",
+            "LowerPthumeruRootSinister": "Sinister Pthumeru Root (3)",
+            "Pthumeru": "Pthumeru (1)",
+            "Pthumeru6RootDefiled": "Curse Pthumeru Root (6)",
+            "Pthumeru7RootDefiled": "Curse Pthumeru Root (7)",
+            "Pthumeru7RootTerribleCurse": "Terrible Curse Pthumeru Root (7)",
+            "Pthumeru7SinisterRoot": "Sinister Pthumeru Root (7)",
+            "Pthumeru8": "Pthumeru (8)",
+            "PthumeruIhyll": "Pthumeru (5)",
+            "PthumeruIhyllRoot": "Pthumeru Root (5)",
+            "PthumeruIhyllRootSinister": "Sinister Pthumeru Root (5)",
+            "PthumeruRoot": "Pthumeru Root (1)"
+        },
+        "Effect": {
+            "Default": "None",
+            "IszDefault": "None (Isz)",
+            "IszBath": "Bath Messengers (Isz)",
+            "IszBps": "Beast-possessed Soul (Isz)",
+            "IszPatches": "Patches the Spider (Isz)",
+            "IszBathBps": "BPS + Bath (Isz)",
+            "IszPatchesBps": "BPS + Patches (Isz)",
+            "Bath": "Bath Messengers",
+            "Bps": "Beast-possessed Soul",
+            "Patches": "Patches the Spider",
+            "BathBps": "BPS + Bath",
+            "PatchesBps": "BPS + Patches",
+            "CoffinsShared": "Unique items in coffins",
+            "CoffinsPthumeru": "Unique items in coffins (Pthumeru)",
+            "CoffinsHintertomb": "Unique items in coffins (Hintertomb)",
+            "CoffinsLoran": "Unique items in coffins (Loran)",
+            "CoffinsIsz": "Unique items in coffins (Isz)",
+            "GemEffectPthumeru": "Gem category (Pthumeru)",
+            "GemEffectHintertomb": "Gem category (Hintertomb)",
+            "GemEffectLoran": "Gem category (Loran)",
+            "GemEffectIsz": "Gem category (Isz)",
+            "DifficultyUp": "Difficulty UP",
+            "Layer4OpenShared": "4th layer open",
+            "Layer4ClosedPthumeru5": "4th layer closed (Sinister Pthumeru 5)",
+            "Layer4OpenPthumeru": "4th layer open (Pthumeru)",
+            "Layer4ClosedPthumeru": "4th layer closed (Pthumeru)",
+            "Layer4OpenUnused1": "4th layer open (Unused 1)",
+            "Layer4ClosedUnused1": "4th layer closed (Unused 1)",
+            "Layer4OpenUnused2": "4th layer open (Unused 2)",
+            "Layer4ClosedUnused2": "4th layer closed (Unused 2)",
+            "Layer4OpenIsz": "4th layer open (Isz)",
+            "Layer4ClosedIsz": "4th layer closed (Isz)",
+            "PoisonousEnvironmentHintertomb": "Poisonous environment (Hintertomb)",
+            "PoisonousEnvironmentPthumeru": "Poisonous environment (Pthumeru)",
+            "NonPoisonousEnvironmentHintertomb": "Non-poisonous environment (Hintertomb)",
+            "NonPoisonousEnvironmentPthumeru": "Non-poisonous environment (Pthumeru)",
+            "OilyEnvironment": "Oily environment",
+            "SharedFixed": "Shared fixed",
+            "Sinister": "Sinister Bell",
+            "Fetid": "Fetid Offering",
+            "Cursed": "Cursed Offering",
+            "CursedPthumeru4": "Cursed Offering (Defiled Chalice)",
+            "TerribleCurse": "Terrible curse (25%)",
+            "TerribleCurse2": "Terrible curse (12.5%)",
+            "EyeCollector": "Rotted Offering: Eye collector",
+            "TombProspector": "Rotted Offering: Tomb Prospectors",
+            "Ritekeeper": "Rotted Offering: Labyrinth Ritekeeper",
+            "Marionette1": "Rotted Offering: Micolash Marionettes (1)",
+            "EyeCollectorTombProspector": "Rotted Offering: Eye Collector + Tomb Prospectors",
+            "EyeCollectorRitekeeper": "Rotted Offering: Eye Collector + Labyrinth Ritekeeper",
+            "Marionette2": "Rotted Offering: Micolash Marionettes (2)",
+            "TombProspectorRitekeeper": "Rotted Offering: Tomb Prospectors + Labyrinth Ritekeeper",
+            "Marionette3": "Rotted Offering: Micolash Marionettes (3)",
+            "Marionette4": "Rotted Offering: Micolash Marionettes (4)",
+            "SinisterPthumeru3": "Sinister Pthumeru 3 purchase",
+            "SinisterHintertomb3": "Sinister Hintertomb 3 purchase",
+            "SinisterPthumeru5DifficultyUp": "Sinister Pthumeru 5 purchase + Difficulty UP",
+            "SinisterLoran5": "Sinister Loran 5 purchase",
+            "SinisterIsz5": "Sinister Isz 5 purchase",
+            "RootChaliceDropPthumeru": "Root chalice drop: Pthumeru",
+            "RootChaliceDropUnknown1": "Root chalice drop: Undocumented (1)",
+            "RootChaliceDropUnknown2": "Root chalice drop: Undocumented (2)",
+            "RootChaliceDropHintertomb": "Root chalice drop: Hintertomb",
+            "RootChaliceDropUnknown3": "Root chalice drop: Undocumented (3)",
+            "RootChaliceDropLoran": "Root chalice drop: Loran",
+            "RootChaliceDropUnknown4": "Root chalice drop: Undocumented (4)",
+            "RootChaliceDropIsz": "Root chalice drop: Isz"
+        }
     },
     "Errors": {
+        "Authorization": {
+            "Invalid": "Incorrect username or password.",
+            "Lockout": "Too many unsuccessful login attempts. Please try again later.",
+            "NotAllowed": "Access to this account is restricted."
+        },
         "Common": {
             "FieldRequired": "This field is required.",
             "Unknown": "Something went wrong. Please try again later."
         },
         "Registration": {
             "DuplicateUserName": "A user with the specified username already exists.",
-            "InvalidUserName": "The username may contain only letters and digits.",
-            "InvalidPasswordFormat": "Password must be 12+ characters and include uppercase, lowercase, number, and symbol."
-        },
-        "Authorization": {
-            "Invalid": "Incorrect username or password.",
-            "Lockout": "Too many unsuccessful login attempts. Please try again later.",
-            "NotAllowed": "Access to this account is restricted."
+            "InvalidPasswordFormat": "Password must be 12+ characters and include uppercase, lowercase, number, and symbol.",
+            "InvalidUserName": "The username may contain only letters and digits."
         },
         "SaveFile": {
-            "TooLarge": "File exceeds 5MB limit."
+            "TooLarge": "File exceeds 5MB limit.",
+            "InvalidId": "Invalid save file ID format."
         },
         "User": {
             "NotEnoughFunds": "Not enough funds."
+        }
+    },
+    "Navbar": {
+        "Transactions": "Transactions",
+        "Upload": "Upload",
+        "Uploads": "Uploads",
+        "Users": "Users"
+    },
+    "Pages": {
+        "SaveFile": {
+            "Title": "Save file",
+            "Labels": {
+                "Title": "Save file",
+                "Subtitle": "Browse and modify dungeons within your save file",
+                "Dungeon": "Dungeon",
+                "Actions": "Actions",
+                "Compile": "Compile save file",
+                "Edit": "Edit save file"
+            }
+        },
+        "Login": {
+            "Labels": {
+                "DontHaveAccount": "Don't have an account?",
+                "Title": "Welcome back!"
+            },
+            "Title": "Sign in"
+        },
+        "Register": {
+            "Labels": {
+                "AlreadyRegistered": "Already have an account?",
+                "Title": " Create account"
+            },
+            "Title": "Sign up"
+        },
+        "Transactions": {
+            "Labels": {
+                "Amount": "Amount",
+                "CreatedAt": "Date",
+                "Description": "Description",
+                "Subtitle": "View transactions on account",
+                "Title": "Transactions"
+            },
+            "Title": "Transactions"
+        },
+        "Upload": {
+            "Labels": {
+                "DragNDrop": "Drag and drop your save file here",
+                "Title": "Upload save file",
+                "Upload": "Upload"
+            },
+            "Title": "Upload save file"
+        },
+        "Uploads": {
+            "Labels": {
+                "Actions": "Actions",
+                "Delete": "Delete save file",
+                "DeleteConfirmation": "Are you sure you want to delete this file?",
+                "Edit": "Edit save file",
+                "FileName": "File name",
+                "Info": {
+                    "Error": "Something went wrong during save file processing, try again later",
+                    "Failed": "Unable to locate any dungeons in uploaded save file"
+                },
+                "State": "State",
+                "Subtitle": "Manage uploaded save files",
+                "Title": "Save Files",
+                "UploadedAt": "Uploaded At",
+                "Download": "Download save file"
+            },
+            "Title": "Save file uploads"
+        },
+        "Users": {
+            "Labels": {
+                "Actions": "Actions",
+                "Balance": "Balance",
+                "Subtitle": "View and manage users balance",
+                "Title": "Users",
+                "Username": "Username"
+            },
+            "Title": "Users"
         }
     }
 }

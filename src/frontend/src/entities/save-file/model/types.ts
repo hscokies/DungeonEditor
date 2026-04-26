@@ -1,3 +1,5 @@
+import type { DungeonPreview } from '@/entities/dungeon/model/types.ts';
+
 export enum SaveFileState {
     Uploaded = 0,
     Processing = 1,
@@ -15,4 +17,9 @@ export interface SaveFile {
 
 export interface ListSaveFilesResponse {
     saveFiles: SaveFile[];
+}
+
+export interface GetSaveFilesResponse {
+    state: SaveFileState;
+    dungeons: DungeonPreview[];
 }

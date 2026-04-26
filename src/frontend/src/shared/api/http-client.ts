@@ -69,6 +69,21 @@ class HttpClient {
         return data as TResult;
     }
 
+    public async getBlob(path: string, query?: Record<string, unknown>): Promise<Blob> {
+        const response = await this.sendRequest({
+            path: this.relativeUrl(path, query),
+            options: {
+                method: HTTP_METHOD.GET,
+            },
+        });
+
+        if (!response.ok) {
+            throw await this.parseJson(response);
+        }
+
+        return response.blob();
+    }
+
     public async postJson<TRequest = Record<string, unknown>>(path: string, body: TRequest): Promise<void> {
         const response = await this.sendRequest({
             path,
@@ -100,7 +115,7 @@ class HttpClient {
         }
     }
 
-    public async patch<TRequest = Record<string, unknown>>(path: string, body: TRequest) {
+    public async patch<TRequest = Record<string, unknown>>(path: string, body?: TRequest) {
         const response = await this.sendRequest({
             path,
             options: {

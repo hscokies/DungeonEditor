@@ -1,7 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import { LoginPage, RegisterPage, TransactionsPage, UploadPage, UploadsPage } from '@/pages/ui';
+import {
+    LoginPage,
+    RegisterPage,
+    SaveFilePage,
+    TransactionsPage,
+    UploadPage,
+    UploadsPage,
+    UsersPage,
+} from '@/pages/ui';
 import { i18n } from '@/shared/i18n';
-import UsersPage from '@/pages/ui/users-page.vue';
 
 export enum Routes {
     Login = 'login',
@@ -10,6 +17,7 @@ export enum Routes {
     Uploads = 'uploads',
     Transactions = 'transactions',
     Users = 'users',
+    SaveFile = 'save-file',
 }
 
 export const router = createRouter({
@@ -53,6 +61,14 @@ export const router = createRouter({
             component: TransactionsPage,
             meta: {
                 title: i18n.global.t('Pages.Transactions.Title'),
+            },
+        },
+        {
+            path: '/savefiles/:id',
+            name: Routes.SaveFile,
+            component: SaveFilePage,
+            meta: {
+                title: i18n.global.t('Pages.SaveFile.Title'),
             },
         },
         {

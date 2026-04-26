@@ -1,5 +1,5 @@
 import { httpClient } from '@/shared/api/http-client.ts';
-import type { ListSaveFilesResponse } from '@/entities/save-file/model/types.ts';
+import type { GetSaveFilesResponse, ListSaveFilesResponse } from '@/entities/save-file/model/types.ts';
 
 export class SaveFileApi {
     public static upload(file: File) {
@@ -14,5 +14,17 @@ export class SaveFileApi {
 
     public static remove(id: string) {
         return httpClient.delete(`/api/savefiles/${id}`);
+    }
+
+    public static get(id: string) {
+        return httpClient.get<GetSaveFilesResponse>(`/api/savefiles/${id}`);
+    }
+
+    public static compile(id: string) {
+        return httpClient.patch(`/savefiles/${id}`);
+    }
+
+    public static async download(id: string) {
+        window.location.href = `/api/savefiles/${id}/download`;
     }
 }

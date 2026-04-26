@@ -20,6 +20,7 @@ internal sealed class Edit : IEndpoint
                 var result = await handler.Handle(command, cancellationToken);
                 return result.Match(Results.NoContent, CustomResults.Problem);
             })
+            .WithTags(Tags.Account)
             .RequireAuthorization(x => x.RequireRole(RoleName.Admin))
             .Produces(StatusCodes.Status204NoContent)
             .ProducesValidationProblem();

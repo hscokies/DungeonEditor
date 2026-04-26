@@ -148,6 +148,11 @@ $accent: colors.$cpt-peach;
         &--active {
             background-color: colors.$surface-element-1;
         }
+
+        &:focus {
+            outline: variables.$outline solid colors.$cpt-mauve;
+            box-shadow: variables.$box-shadow rgba(colors.$cpt-mauve, 0.25);
+        }
     }
 
     &__burger {

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 import { SaveIcon as Save } from '@lucide/vue';
 import { UiColumn, UiDatatable, UiIconButton, UiInput } from '@/shared/ui';
 import type { LazyOptions } from '@/shared/ui/ui-datatable/ui-datatable.types.ts';
@@ -14,20 +14,23 @@ const rows = ref<User[]>([]);
 const keyFiled: keyof User = 'id';
 const batchSize = 50;
 
-async function loadData(options: LazyOptions) {
-    const data = await AccountApi.list(options.offset, options.limit);
+async function loadMore(options: LazyOptions) {
+    const data = await load(options);
     rows.value = [...rows.value, ...data.users];
+}
+
+async function loadData(options: LazyOptions) {
+    const data = await load(options);
+    rows.value = data.users;
+}
+
+function load(options: LazyOptions) {
+    return AccountApi.list(options.offset, options.limit, options.filter);
 }
 
 function applyChanges(row: User) {
     AccountApi.setBalance(row.id, row.balance);
 }
-
-onMounted(() => {
-    if (!rows.value.length) {
-        loadData({ offset: 0, limit: batchSize });
-    }
-});
 </script>
 
 <template>
@@ -41,7 +44,10 @@ onMounted(() => {
             :key-field="keyFiled"
             :row-height="32"
             :rows="rows"
-            @load-more="loadData"
+            filter
+            :filter-placeholder="$t('Pages.Users.Placeholders.Search')"
+            @load-more="loadMore"
+            @load="loadData"
             :max-visible-rows="batchSize"
         >
             <ui-column :header="$t('Pages.Users.Labels.Username')" field="username" />
@@ -72,8 +78,29 @@ onMounted(() => {
 
 <style scoped lang="scss">
 @use 'src/shared/ui/colors' as colors;
+@use 'src/shared/ui/spacing' as spacing;
+@use 'src/shared/ui/typography' as typography;
 
 .view-users {
+    &__header {
+        display: flex;
+        flex-flow: column nowrap;
+        gap: spacing.$spacing-0-5;
+        margin-bottom: spacing.$spacing-4;
+    }
+
+    &__title {
+        color: colors.$heading;
+        font-size: typography.$font-size-xl;
+        margin: 0;
+    }
+
+    &__subtitle {
+        color: colors.$sub-heading-0;
+        font-size: typography.$font-size-lg;
+        margin: 0;
+    }
+
     &__input {
         --ui-input-background: transparent;
         --ui-input-border: none;

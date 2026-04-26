@@ -13,7 +13,7 @@ public sealed class ListUsersHandler(IReadOnlyDataContext dataContext) : IQueryH
         if (!string.IsNullOrWhiteSpace(query.Search))
         {
             var normalizedSearch = query.Search.ToUpper();
-            queryable = queryable.Where(x => EF.Functions.Like(x.UserName, $"{normalizedSearch}%"));
+            queryable = queryable.Where(x => EF.Functions.Like(x.NormalizedUserName, $"{normalizedSearch}%"));
         }
 
         var users = await queryable.Skip(query.Offset)

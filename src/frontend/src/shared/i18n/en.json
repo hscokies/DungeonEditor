@@ -234,6 +234,9 @@
                 "UploadedAt": "Uploaded At",
                 "Download": "Download save file"
             },
+            "Placeholders": {
+                "Search": "Try typing save file name"
+            },
             "Title": "Save file uploads"
         },
         "Users": {
@@ -243,6 +246,9 @@
                 "Subtitle": "View and manage users balance",
                 "Title": "Users",
                 "Username": "Username"
+            },
+            "Placeholders": {
+                "Search": "Try typing username"
             },
             "Title": "Users"
         }

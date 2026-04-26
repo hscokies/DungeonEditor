@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { UiColumn, UiDatatable, UiIconButton, UiSpinner } from '@/shared/ui';
 import type { LazyOptions } from '@/shared/ui/ui-datatable/ui-datatable.types.ts';
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 import { type SaveFile, SaveFileApi, SaveFileState } from '@/entities/save-file';
 import { FileDown, Info, Pencil, Trash2 } from '@lucide/vue';
 import { IconSize } from '@/shared/types/icon-size.ts';
@@ -13,9 +13,18 @@ const rows = ref<SaveFile[]>([]);
 const keyFiled: keyof SaveFile = 'id';
 const batchSize = 50;
 
-async function loadData(options: LazyOptions) {
-    const data = await SaveFileApi.list(options.offset, options.limit);
+async function loadMore(options: LazyOptions) {
+    const data = await load(options);
     rows.value = [...rows.value, ...data.saveFiles];
+}
+
+async function loadData(options: LazyOptions) {
+    const data = await load(options);
+    rows.value = data.saveFiles;
+}
+
+function load(options: LazyOptions) {
+    return SaveFileApi.list(options.offset, options.limit, options.filter);
 }
 
 async function removeSaveFile(id: string) {
@@ -32,18 +41,12 @@ async function editSaveFile(id: string) {
 }
 
 async function download(id: string) {
-    SaveFileApi.download(id);
+    await SaveFileApi.download(id);
 }
 
 function isFailed(state: SaveFileState) {
     return state === SaveFileState.Failed || state === SaveFileState.Error;
 }
-
-onMounted(() => {
-    if (!rows.value.length) {
-        loadData({ offset: 0, limit: batchSize });
-    }
-});
 </script>
 
 <template>
@@ -57,7 +60,10 @@ onMounted(() => {
             :key-field="keyFiled"
             :row-height="32"
             :rows="rows"
-            @load-more="loadData"
+            filter
+            :filter-placeholder="$t('Pages.Uploads.Placeholders.Search')"
+            @load-more="loadMore"
+            @load="loadData"
             :max-visible-rows="batchSize"
         >
             <ui-column field="fileName" :header="$t('Pages.Uploads.Labels.FileName')" />
@@ -124,6 +130,7 @@ onMounted(() => {
         display: flex;
         flex-flow: column nowrap;
         gap: spacing.$spacing-0-5;
+        margin-bottom: spacing.$spacing-4;
     }
 
     &__title {

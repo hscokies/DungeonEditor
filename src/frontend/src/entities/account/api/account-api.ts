@@ -18,8 +18,8 @@ export class AccountApi {
         return httpClient.get<User>('/api/users/me');
     }
 
-    public static list(offset: number, limit: number) {
-        return httpClient.get<ListUsersResponse>('/api/users', { offset, limit });
+    public static list(offset: number, limit: number, search?: string) {
+        return httpClient.get<ListUsersResponse>('/api/users', { offset, limit, ...(search && { search }) });
     }
 
     public static setBalance(id: string, balance: number) {

@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import 'vue-virtual-scroller/dist/vue-virtual-scroller.css';
-import { computed, provide, ref } from 'vue';
+import { computed, onMounted, provide, ref } from 'vue';
 import { type DatatableColumn, type Emits, Injections, type PropTypes } from './ui-datatable.types.ts';
 import { RecycleScroller } from 'vue-virtual-scroller';
+import { UiInput } from '@/shared/ui';
+import { useDebounce } from '@/shared/hooks';
 
 const emit = defineEmits<Emits>();
-const { keyField, rowHeight, maxVisibleRows = 30, rows } = defineProps<PropTypes>();
+const { keyField, rowHeight, maxVisibleRows = 30, rows, filter = false, filterPlaceholder } = defineProps<PropTypes>();
 
 const scrollerHeight = computed(() => maxVisibleRows * rowHeight);
 const datatableStyles = computed(() => ({
@@ -15,6 +17,7 @@ const datatableStyles = computed(() => ({
 }));
 
 const columns = ref<DatatableColumn[]>([]);
+const filterValue = ref<string>();
 
 let offsetCounter = 0;
 
@@ -22,14 +25,34 @@ function loadMore() {
     offsetCounter++;
 
     emit('load-more', {
+        filter: filterValue.value,
         limit: maxVisibleRows,
         offset: offsetCounter * maxVisibleRows,
     });
 }
 
+function loadData() {
+    emit('load', {
+        filter: filterValue.value,
+        limit: maxVisibleRows,
+        offset: 0,
+    });
+}
+
+const onFilterChange = useDebounce((query: string) => {
+    filterValue.value = query;
+    loadData();
+}, 350);
+
 function getRenderKey(...args: unknown[]) {
     return args.join('_');
 }
+
+onMounted(() => {
+    if (!rows.length) {
+        loadData();
+    }
+});
 
 provide(Injections.RegisterColumn, (column: DatatableColumn) => {
     if (!columns.value.some(x => x.header === column.header)) {
@@ -41,6 +64,7 @@ provide(Injections.RegisterColumn, (column: DatatableColumn) => {
 <template>
     <div :class="$cn()" :style="datatableStyles">
         <slot />
+        <ui-input v-if="filter" :placeholder="filterPlaceholder" @input="onFilterChange($event.target.value)" />
         <div :class="$cn('content')">
             <recycle-scroller
                 ref="scroller"
@@ -95,6 +119,11 @@ provide(Injections.RegisterColumn, (column: DatatableColumn) => {
 .ui-datatable {
     $root: &;
 
+    display: flex;
+    flex-grow: 0;
+    flex-flow: column nowrap;
+    align-items: start;
+    gap: var(--ui-datatable-gap, spacing.$spacing-4);
     min-width: 100%;
     overflow-x: auto;
 

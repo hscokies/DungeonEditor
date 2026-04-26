@@ -8,12 +8,18 @@ export interface PropTypes {
     keyField: string;
     maxVisibleRows?: number;
     rowHeight: number;
+    filter?: boolean;
+    filterPlaceholder?: string;
     rows: Record<string, unknown>[];
 }
 
-export type Emits = (e: 'load-more', options: LazyOptions) => void;
+export interface Emits {
+    (e: 'load-more', options: LazyOptions): void;
+    (e: 'load', options: LazyOptions): void;
+}
 
 export interface LazyOptions {
+    filter?: string;
     limit: number;
     offset: number;
 }

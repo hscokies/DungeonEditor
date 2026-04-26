@@ -58,9 +58,30 @@ onMounted(() => {
 
 <style scoped lang="scss">
 @use 'src/shared/ui/colors' as colors;
+@use 'src/shared/ui/spacing' as spacing;
+@use 'src/shared/ui/typography' as typography;
 
 .view-transactions {
     --ui-datatable-width: 700px;
+
+    &__header {
+        display: flex;
+        flex-flow: column nowrap;
+        gap: spacing.$spacing-0-5;
+        margin-bottom: spacing.$spacing-4;
+    }
+
+    &__title {
+        color: colors.$heading;
+        font-size: typography.$font-size-xl;
+        margin: 0;
+    }
+
+    &__subtitle {
+        color: colors.$sub-heading-0;
+        font-size: typography.$font-size-lg;
+        margin: 0;
+    }
 
     &__amount {
         &--type-inbound {

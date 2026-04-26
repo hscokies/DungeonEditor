@@ -8,8 +8,8 @@ export class SaveFileApi {
         return httpClient.postForm('/api/savefiles', formData);
     }
 
-    public static list(offset: number, limit: number) {
-        return httpClient.get<ListSaveFilesResponse>('/api/savefiles', { offset, limit });
+    public static list(offset: number, limit: number, search: string | undefined) {
+        return httpClient.get<ListSaveFilesResponse>('/api/savefiles', { offset, limit, ...(search && { search }) });
     }
 
     public static remove(id: string) {

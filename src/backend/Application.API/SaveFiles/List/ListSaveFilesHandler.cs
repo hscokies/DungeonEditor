@@ -9,8 +9,15 @@ public sealed class ListSaveFilesHandler(IReadOnlyDataContext readOnlyDataContex
 {
     public async Task<Result<ListSaveFilesResult>> Handle(ListSaveFilesQuery query, CancellationToken cancellationToken)
     {
-        var saveFiles = await readOnlyDataContext.SaveFiles
-            .Where(x => x.UserId == query.UserId)
+        var queryable = readOnlyDataContext.SaveFiles
+            .Where(x => x.UserId == query.UserId);
+
+        if (!string.IsNullOrWhiteSpace(query.Search))
+        {
+            queryable = queryable.Where(x => EF.Functions.Like(x.FileName, $"{query.Search}%"));
+        }
+        
+        var saveFiles = await queryable
             .Take(query.Limit)
             .Skip(query.Offset)
             .Select(x => new SaveFileDto(x.Id, x.FileName, x.CreatedAt, x.State))

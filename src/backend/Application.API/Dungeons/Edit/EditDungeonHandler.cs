@@ -13,12 +13,21 @@ public sealed class EditDungeonHandler(IDataContext dataContext) : ICommandHandl
 
     public async Task<Result> Handle(EditDungeonCommand command, CancellationToken cancellationToken)
     {
-        if (command.AuthorCharacter.ByteCount() > ByteSize.Author ||
-            command.AuthorPSN.ByteCount() > ByteSize.Author)
+        Dictionary<string, IEnumerable<Error>> errors = [];
+        if (command.AuthorCharacter.ByteCount() > ByteSize.Author)
         {
-            return DungeonErrors.AuthorNameTooLong;
+            errors.Add(nameof(command.AuthorCharacter), [DungeonErrors.AuthorNameTooLong]);
         }
 
+        if (command.AuthorPSN.ByteCount() > ByteSize.Author)
+        {
+            errors.Add(nameof(command.AuthorPSN), [DungeonErrors.AuthorNameTooLong]);
+        }
+
+        if (errors.Count > 0)
+        {
+            return new ValidationError(errors);
+        }
 
         var result = await dataContext.Dungeons
             .Where(x => x.Id == command.Id && x.SaveFile!.UserId == command.UserId)

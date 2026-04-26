@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue';
+import { computed, ref, type Ref } from 'vue';
 
 type RawOption = Record<string, unknown>;
 
@@ -31,7 +31,7 @@ export interface OptionItem<T> extends Option<T> {
 export type SelectItem<T> = OptionItem<T> | GroupItem;
 
 export function useSelectItems<T>(
-    rawOptions: RawOption[],
+    rawOptions: Ref<RawOption[]>,
     optionLabel: string,
     optionValue: string,
     optionGroupLabel?: string,
@@ -62,7 +62,7 @@ export function useSelectItems<T>(
     }
 
     const groups = computed(() =>
-        rawOptions.map(item => {
+        rawOptions.value.map(item => {
             if (!grouped) {
                 return getOption(item);
             }
@@ -115,13 +115,13 @@ export function useSelectItems<T>(
     });
 
     const items = computed(() => {
-        if (!rawOptions.length) {
+        if (!rawOptions.value.length) {
             return [];
         }
 
         return grouped
             ? flatGroupItems.value
-            : rawOptions.map(o => {
+            : rawOptions.value.map(o => {
                   const option = getOption(o);
 
                   return {

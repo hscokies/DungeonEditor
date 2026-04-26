@@ -132,6 +132,23 @@ class HttpClient {
         }
     }
 
+    public async put<TRequest = Record<string, unknown>>(path: string, body: TRequest): Promise<void> {
+        const response = await this.sendRequest({
+            path,
+            options: {
+                method: HTTP_METHOD.PUT,
+                headers: {
+                    'Content-Type': CONTENT_TYPE.JSON,
+                },
+                body: JSON.stringify(body),
+            },
+        });
+
+        if (!response.ok) {
+            throw await this.parseJson(response);
+        }
+    }
+
     public async delete(path: string) {
         return await this.sendRequest({
             path,

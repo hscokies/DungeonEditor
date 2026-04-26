@@ -9,9 +9,9 @@ import {
     useKeyboardNavigation,
     useSelectItems,
 } from '@/shared/hooks';
-import type { Emits, PropTypes, SelectedItem } from './ui-select.types.ts';
+import type { Emits, PropTypes } from './ui-select.types.ts';
 import { UiIconButton, UiInput, UiPopup, UiSpinner } from '@/shared/ui';
-import { computed, ref, useTemplateRef } from 'vue';
+import { computed, onMounted, toRef, useTemplateRef } from 'vue';
 import { ChevronDown, Search } from '@lucide/vue';
 import { RecycleScroller } from 'vue-virtual-scroller';
 import UiSelectItem from '@/shared/ui/ui-select/ui-select-item.vue';
@@ -32,6 +32,8 @@ const {
     filterPlaceholder = undefined,
     itemHeight = 39,
     maxVisibleItems = 5,
+    batchSize = 50,
+    positioningStrategy = 'absolute',
 } = defineProps<PropTypes>();
 const emit = defineEmits<Emits<T>>();
 
@@ -39,6 +41,7 @@ const headerRef = useTemplateRef('header');
 const popupRef = useTemplateRef('popup');
 const hiddenInputRef = useTemplateRef('hiddenInput');
 const scrollerRef = useTemplateRef('scroller');
+const filterRef = useTemplateRef('filterRef');
 
 const { focused, onFocus, onBlur } = useCustomFocus();
 const { focusedIndex, onKeyDown } = useKeyboardNavigation(
@@ -49,7 +52,7 @@ const { focusedIndex, onKeyDown } = useKeyboardNavigation(
     !filter
 );
 const { filterValue, optionItems, filteredItems } = useSelectItems<T>(
-    options,
+    toRef(() => options),
     optionLabel,
     optionValue,
     optionGroupLabel,
@@ -57,9 +60,10 @@ const { filterValue, optionItems, filteredItems } = useSelectItems<T>(
 );
 
 const model = defineModel<T>();
-const selected = ref<SelectedItem>();
+let offsetCounter = 0;
 
 const scrollerHeight = computed(() => maxVisibleItems * itemHeight);
+const label = computed(() => optionItems.value.find(item => item.value === model.value)?.label ?? model.value);
 const scrollerStyles = computed(() => ({
     maxHeight: `${scrollerHeight.value}px`,
 }));
@@ -73,6 +77,7 @@ const visibleItems = computed(() =>
             header: group,
             renderKey: item.renderKey,
             label: item.label,
+            value: group ? undefined : item.value,
             onSelect: group ? emptyCallback : () => onSelect(item),
             onHover: group ? emptyCallback : () => (focusedIndex.value = index),
         };
@@ -143,13 +148,12 @@ function onHeaderClick() {
 
 function onSelect(option: OptionItem<T>) {
     model.value = option.value;
-    selected.value = option;
-
     popupRef.value?.hide();
 }
 
 const onFilterChange = useDebounce((query: string) => {
     filterValue.value = query;
+    loadData();
 }, 350);
 
 function focusHiddenInput() {
@@ -166,13 +170,53 @@ function itemVisible(
 }
 
 function resetFocus() {
-    const index = visibleItems.value.findIndex(item => item.renderKey === selected.value?.renderKey);
+    const index = visibleItems.value.findIndex(item => item.value === model.value);
     moveFocus(index);
 }
+
+function loadMore() {
+    offsetCounter++;
+
+    emit('load-more', {
+        filter: filterValue.value,
+        limit: maxVisibleItems,
+        offset: offsetCounter * batchSize,
+    });
+}
+
+function loadData() {
+    emit('load', {
+        filter: filterValue.value,
+        limit: 0,
+        offset: batchSize,
+    });
+}
+
+function onHeaderKeyDown(e: KeyboardEvent) {
+    if (e.key === 'Tab' && filter && popupRef.value?.visible) {
+        filterRef.value?.focus();
+        e.preventDefault();
+    } else {
+        onKeyDown(e);
+    }
+}
+
+onMounted(() => {
+    if (!options.length) {
+        loadData();
+    }
+});
 </script>
 
 <template>
-    <ui-popup ref="popup" :reference="() => headerRef" placement="bottom-start" strategy="absolute" @hide="resetFocus">
+    <ui-popup
+        :class="$cn()"
+        ref="popup"
+        :reference="() => headerRef"
+        placement="bottom-start"
+        :strategy="positioningStrategy"
+        @hide="resetFocus"
+    >
         <template #default="{ triggerClassName, active }">
             <div :class="$cn('hidden-input-container')">
                 <input
@@ -188,7 +232,7 @@ function resetFocus() {
                     role="combobox"
                     @focus="onFocus"
                     @blur="onBlur"
-                    @keydown="onKeyDown"
+                    @keydown="onHeaderKeyDown"
                 />
             </div>
 
@@ -197,8 +241,8 @@ function resetFocus() {
                     <slot name="prefix" />
                 </div>
                 <div :class="$cn('label-container')">
-                    <span v-if="selected" :class="$cn('label')">
-                        {{ selected.label }}
+                    <span v-if="label" :class="$cn('label')">
+                        {{ label }}
                     </span>
                     <span v-else :class="$cn('placeholder')">
                         {{ placeholder }}
@@ -223,6 +267,7 @@ function resetFocus() {
         <template #popup>
             <div :class="$cn('overlay')">
                 <ui-input
+                    ref="filterRef"
                     v-if="filter"
                     :class="$cn('filter')"
                     :placeholder="filterPlaceholder"
@@ -243,6 +288,7 @@ function resetFocus() {
                     list-tag="ul"
                     item-tag="li"
                     :items="visibleItems"
+                    @scrollend="loadMore"
                 >
                     <template #empty>
                         <div :class="$cn('no-data')">
@@ -252,7 +298,7 @@ function resetFocus() {
                     <template #default="{ item, index }">
                         <ui-select-item
                             :key="item.renderKey"
-                            :selected="item.renderKey === selected?.renderKey"
+                            :selected="item.value === model"
                             role="menuitemradio"
                             :header="item.header"
                             :focused="index === focusedIndex"
@@ -281,6 +327,8 @@ function resetFocus() {
 $box-shadow: 0 8px 16px 0 rgba(colors.$overlay-0, 0.35);
 
 .ui-select {
+    overflow: hidden;
+
     &__hidden-input-container {
         position: absolute;
         width: 1px;

@@ -98,15 +98,17 @@ defineExpose({
 </template>
 
 <style scoped lang="scss">
+@use 'src/shared/ui/z-index' as z-index;
+
 .ui-popup {
     position: relative;
     display: flex;
 
     &__popup {
-        width: 100%;
+        width: var(--ui-popup-width);
 
-        &--active {
-            z-index: 1;
+        &--visible {
+            z-index: z-index.$ui-popup;
         }
     }
 }

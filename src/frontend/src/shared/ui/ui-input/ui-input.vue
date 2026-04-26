@@ -14,6 +14,14 @@ function onFocusIn(e: FocusEvent) {
         onFocus();
     }
 }
+
+function focus() {
+    fieldRef.value?.focus();
+}
+
+defineExpose({
+    focus,
+});
 </script>
 
 <template>

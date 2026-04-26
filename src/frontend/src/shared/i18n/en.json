@@ -145,6 +145,9 @@
         }
     },
     "Errors": {
+        "Validation": {
+            "General": "One or more validations failed"
+        },
         "Authorization": {
             "Invalid": "Incorrect username or password.",
             "Lockout": "Too many unsuccessful login attempts. Please try again later.",
@@ -165,6 +168,11 @@
         },
         "User": {
             "NotEnoughFunds": "Not enough funds."
+        },
+        "Dungeon": {
+            "ProcessingSaveFile": "Cannot modify dungeon while the save file is being processed.",
+            "NotFound": "Specified dungeon cannot be found.",
+            "AuthorNameTooLong": "Author name should be less or equal to 16 bytes"
         }
     },
     "Navbar": {
@@ -172,6 +180,23 @@
         "Upload": "Upload",
         "Uploads": "Uploads",
         "Users": "Users"
+    },
+    "Modals": {
+        "EditDungeon": {
+            "Labels": {
+                "Title": "Edit dungeon",
+                "Subtitle": "Configure dungeon properties, effects, and author information",
+                "Map": "Map",
+                "JoinRequirement": "Join Requirement",
+                "Effects": "Effect slots",
+                "Effect": "Effect Slot {index}",
+                "Author": "Author",
+                "PSN": "PSN",
+                "Character": "Character",
+                "Apply": "Apply changes",
+                "Cancel": "Cancel"
+            }
+        }
     },
     "Pages": {
         "SaveFile": {

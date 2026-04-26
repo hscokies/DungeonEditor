@@ -65,7 +65,7 @@ h1{
     margin: spacing.$spacing-0;
 }
 
-:focus{
-    outline: variables.$outline solid colors.$cpt-mauve;
-    box-shadow: variables.$box-shadow rgba(colors.$cpt-mauve, 0.25)
-}
+//:focus-visible{
+//    outline: variables.$outline solid colors.$cpt-mauve;
+//    box-shadow: variables.$box-shadow rgba(colors.$cpt-mauve, 0.25)
+//}

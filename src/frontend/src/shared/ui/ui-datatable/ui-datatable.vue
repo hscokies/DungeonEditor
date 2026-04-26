@@ -115,8 +115,8 @@ provide(Injections.RegisterColumn, (column: DatatableColumn) => {
                     </div>
                 </template>
             </recycle-scroller>
-            <div :class="$cn('footer')">
-                <ui-spinner v-show="loading" :size="IconSize.xl" />
+            <div v-show="loading" :class="$cn('footer')">
+                <ui-spinner :size="IconSize.xl" />
             </div>
         </div>
     </div>

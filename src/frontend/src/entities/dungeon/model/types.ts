@@ -3,6 +3,26 @@ export interface DungeonPreview {
     joinRequirement: JoinRequirement;
 }
 
+export interface GetMapsResponse {
+    maps: string[];
+}
+
+export interface Dungeon {
+    map: string;
+    joinRequirement: JoinRequirement;
+    effect1: number;
+    effect2: number;
+    effect3: number;
+    effect4: number;
+    effect5: number;
+    effect6: number;
+    effect7: number;
+    effect8: number;
+    effect9: number;
+    authorPSN: string;
+    authorCharacter: string;
+}
+
 export enum JoinRequirement {
     Pthumeru = 0x00_00_17_dd,
     PthumeruRoot = 0x00_00_17_d4,

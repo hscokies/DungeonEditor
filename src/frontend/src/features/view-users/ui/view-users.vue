@@ -2,11 +2,11 @@
 import { ref } from 'vue';
 import { SaveIcon as Save } from '@lucide/vue';
 import { UiColumn, UiDatatable, UiIconButton, UiInput } from '@/shared/ui';
-import type { LazyOptions } from '@/shared/ui/ui-datatable/ui-datatable.types.ts';
 import type { User } from '@/entities/account/model/types.ts';
 import { AccountApi } from '@/entities/account/api/account-api.ts';
 import { IconSize } from '@/shared/types/icon-size.ts';
 import { useLock } from '@/shared/hooks';
+import type { LazyOptions } from '@/shared/types/lazy-loading.ts';
 
 const { locked, lock, release } = useLock();
 

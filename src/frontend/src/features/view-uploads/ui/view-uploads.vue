@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { UiColumn, UiDatatable, UiIconButton, UiSpinner } from '@/shared/ui';
-import type { LazyOptions } from '@/shared/ui/ui-datatable/ui-datatable.types.ts';
 import { ref } from 'vue';
 import { type SaveFile, SaveFileApi, SaveFileState } from '@/entities/save-file';
 import { FileDown, Info, Pencil, Trash2 } from '@lucide/vue';
@@ -8,6 +7,7 @@ import { IconSize } from '@/shared/types/icon-size.ts';
 import { useI18n } from 'vue-i18n';
 import { router, Routes } from '@/app/router';
 import { useLock } from '@/shared/hooks';
+import type { LazyOptions } from '@/shared/types/lazy-loading.ts';
 
 const { t } = useI18n();
 const { locked, lock, release } = useLock();

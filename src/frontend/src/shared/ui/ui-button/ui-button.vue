@@ -46,10 +46,11 @@ const { label, active, disabled, loading } = defineProps<PropTypes>();
 
     @include styles.variant(
         $root,
-        var(--ui-button-primary-color, colors.$label-1),
-        var(--ui-button-primary-background, colors.$surface-element-0),
-        var(--ui-button-primary-hover-background, colors.$surface-element-1),
-        var(--ui-button-primary-active-border-color, colors.$cpt-mauve)
+        var(--ui-button-color, colors.$label-1),
+        var(--ui-button-background, colors.$surface-element-0),
+        var(--ui-button-hover-background, colors.$surface-element-1),
+        var(--ui-button-hover-color),
+        var(--ui-button-active-border-color, colors.$cpt-mauve)
     );
 
     &:disabled {

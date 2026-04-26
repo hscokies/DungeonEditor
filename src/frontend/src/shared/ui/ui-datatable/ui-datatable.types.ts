@@ -1,3 +1,5 @@
+import type { LazyOptions } from '@/shared/types/lazy-loading.ts';
+
 export interface DatatableColumn {
     field?: string;
     header: string;
@@ -17,12 +19,6 @@ export interface PropTypes {
 export interface Emits {
     (e: 'load-more', options: LazyOptions): void;
     (e: 'load', options: LazyOptions): void;
-}
-
-export interface LazyOptions {
-    filter?: string;
-    limit: number;
-    offset: number;
 }
 
 export type RegisterColumn = (column: DatatableColumn) => void;

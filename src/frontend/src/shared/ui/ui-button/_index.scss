@@ -1,10 +1,11 @@
-@mixin variant($root, $color, $background, $hover-background, $active-border-color) {
+@mixin variant($root, $color, $background, $hover-background, $hover-color, $active-border-color) {
   color: $color;
   background: $background;
   border-color: $background;
 
   &:hover {
     background: $hover-background;
+    color: $hover-color;
   }
 
   &#{$root}--active{

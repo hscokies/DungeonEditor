@@ -2,9 +2,9 @@
 import { UiColumn, UiDatatable } from '@/shared/ui';
 import { ref } from 'vue';
 import { type Transaction, TransactionType } from '@/entities/transaction/model/types.ts';
-import type { LazyOptions } from '@/shared/ui/ui-datatable/ui-datatable.types.ts';
 import { TransactionsApi } from '@/entities/transaction/api/transactions-api.ts';
 import { useLock } from '@/shared/hooks';
+import type { LazyOptions } from '@/shared/types/lazy-loading.ts';
 
 const { locked, lock, release } = useLock();
 

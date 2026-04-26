@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
-import { computed, ref } from 'vue';
+import { computed, ref, useTemplateRef } from 'vue';
 import { type DungeonPreview, JoinRequirement } from '@/entities/dungeon/model/types.ts';
 import { SaveFileApi } from '@/entities/save-file';
 import { useI18n } from 'vue-i18n';
@@ -11,6 +11,7 @@ import { IconSize } from '@/shared/types/icon-size.ts';
 import { toKebabCase } from '@/shared/utils/string.ts';
 import { getFileNameWithoutExtension } from '@/shared/utils/file.ts';
 import { useLock } from '@/shared/hooks';
+import { EditDungeon } from '@/features';
 
 const route = useRoute();
 const { t } = useI18n();
@@ -18,7 +19,9 @@ const { locked, lock, release } = useLock();
 
 const placeholderAsset = 'сhalice-placeholder';
 
+const editDungeonDialogRef = useTemplateRef('edit-dungeon');
 const rows = ref<DungeonPreview[]>([]);
+
 const keyFiled: keyof DungeonPreview = 'id';
 
 const icons = Object.fromEntries(
@@ -75,8 +78,8 @@ async function compile() {
     }
 }
 
-function editDungeon(id: string) {
-    //  todo
+function edit(id: string) {
+    editDungeonDialogRef.value?.open(id);
 }
 </script>
 
@@ -104,16 +107,14 @@ function editDungeon(id: string) {
             </ui-column>
             <ui-column :header="$t('Pages.SaveFile.Labels.Actions')">
                 <template v-slot:default="{ row }">
-                    <ui-icon-button
-                        :label="$t('Pages.SaveFile.Labels.Edit')"
-                        @click="editDungeon(row[keyFiled] as string)"
-                    >
+                    <ui-icon-button :label="$t('Pages.SaveFile.Labels.Edit')" @click="edit(row[keyFiled] as string)">
                         <pencil :size="IconSize.sm" />
                     </ui-icon-button>
                 </template>
             </ui-column>
         </ui-datatable>
     </div>
+    <edit-dungeon ref="edit-dungeon" @update="loadData" />
 </template>
 
 <style scoped lang="scss">
@@ -122,6 +123,8 @@ function editDungeon(id: string) {
 @use 'src/shared/ui/typography' as typography;
 
 .view-dungeons {
+    --ui-datatable-width: 700px;
+
     $root: &;
 
     &__header {
@@ -130,6 +133,7 @@ function editDungeon(id: string) {
         justify-content: space-between;
         align-items: center;
         margin-bottom: spacing.$spacing-4;
+        gap: spacing.$spacing-2;
 
         #{$root}__section {
             display: flex;

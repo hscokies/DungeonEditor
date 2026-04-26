@@ -46,7 +46,7 @@ const styles = computed(() => ({
     }
 
     &--selected {
-        background-color: color.scale(colors.$cpt-lavender, $lightness: -30%);
+        background-color: color.scale(colors.$cpt-lavender, $lightness: -10%);
         color: colors.$on-accent;
     }
 

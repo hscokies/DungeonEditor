@@ -16,11 +16,13 @@ public sealed class ListUsersHandler(IReadOnlyDataContext dataContext) : IQueryH
             queryable = queryable.Where(x => EF.Functions.Like(x.NormalizedUserName, $"{normalizedSearch}%"));
         }
 
-        var users = await queryable.Skip(query.Offset)
+        var users = await queryable
+            .OrderBy(x => x.Id)
+            .Skip(query.Offset)
             .Take(query.Limit)
             .Select(x => new UserDto(x.Id, x.UserName!, x.Balance))
             .ToListAsync(cancellationToken);
-            
+
         return new ListUsersResult(users);
     }
 }

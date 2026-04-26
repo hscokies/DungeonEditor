@@ -28,7 +28,6 @@ public class CompileSaveFileConsumer(IDataContext dataContext, IBlobStorage blob
         var saveFile = await dataContext.SaveFiles
             .Where(sf => sf.Id == id)
             .Include(sf => sf.Dungeons.OrderBy(d => d.Offset))
-            .ThenInclude(d => d.Map)
             .FirstOrDefaultAsync(cancellationToken);
 
         if (saveFile is null)

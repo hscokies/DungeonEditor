@@ -11,9 +11,10 @@ public sealed class GetTransactionsHandler(IReadOnlyDataContext dataContext) : I
     public async Task<Result<GetTransactionsResult>> Handle(GetTransactionsQuery query, CancellationToken cancellationToken)
     {
         var transactions = await dataContext.Transactions.Where(x => x.UserId == query.UserId)
-            .Select(x => new TransactionDto(x.Id, x.Type, x.CreatedAt, x.Amount, x.Description))
+            .OrderBy(x => x.CreatedAt)
             .Skip(query.Offset)
             .Take(query.Limit)
+            .Select(x => new TransactionDto(x.Id, x.Type, x.CreatedAt, x.Amount, x.Description))
             .ToArrayAsync(cancellationToken);
 
         return new GetTransactionsResult(transactions);

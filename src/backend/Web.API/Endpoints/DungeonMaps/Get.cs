@@ -10,11 +10,10 @@ internal sealed class Get : IEndpoint
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
         app.MapGet(GetDungeonMapsQuery.Path, async (
-                string? search,
+                [AsParameters] GetDungeonMapsQuery query,
                 [FromServices] GetDungeonMapsHandler handler,
                 CancellationToken cancellationToken) =>
             {
-                var query = new GetDungeonMapsQuery(search ?? string.Empty);
                 var result = await handler.Handle(query, cancellationToken);
                 return result.Match(Results.Ok, CustomResults.Problem);
             })

@@ -2,7 +2,7 @@
 
 namespace Application.DungeonMaps.Get;
 
-public record GetDungeonMapsQuery(string Search) : IQuery<GetDungeonMapsResult>
+public record GetDungeonMapsQuery(string? Search, ushort Offset, ushort Limit) : IQuery<GetDungeonMapsResult>
 {
-    public const string Path = "/dungeons/map";
+    public const string Path = "/dungeons/maps";
 }

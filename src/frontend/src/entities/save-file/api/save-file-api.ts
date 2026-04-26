@@ -21,7 +21,7 @@ export class SaveFileApi {
     }
 
     public static compile(id: string) {
-        return httpClient.patch(`/savefiles/${id}`);
+        return httpClient.patch(`/api/savefiles/${id}`);
     }
 
     public static async download(id: string) {

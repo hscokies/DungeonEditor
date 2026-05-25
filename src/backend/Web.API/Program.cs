@@ -40,6 +40,8 @@ try
     var app = builder.Build();
     app.UseAuthentication();
     app.UseAuthorization();
+
+    app.MapGet("/api/ping", () => "pong");
     app.MapEndpoints(app.MapGroup("api"));
 
     if (app.Environment.IsDevelopment())

@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import Page from './page.vue';
 import { Upload } from '@/features';
+
+defineOptions({
+    name: 'upload-page',
+});
 </script>
 
 <template>

@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import Page from '@/pages/ui/page.vue';
 import { ViewDungeons } from '@/features';
+
+defineOptions({
+    name: 'save-file-page',
+});
 </script>
 
 <template>

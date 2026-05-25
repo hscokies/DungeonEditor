@@ -16,6 +16,10 @@ import { ChevronDown, Search } from '@lucide/vue';
 import { RecycleScroller } from 'vue-virtual-scroller';
 import UiSelectItem from '@/shared/ui/ui-select/ui-select-item.vue';
 
+defineOptions({
+    name: 'ui-select',
+});
+
 const {
     id,
     placeholder,

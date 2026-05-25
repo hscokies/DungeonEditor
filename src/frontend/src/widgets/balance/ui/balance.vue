@@ -6,6 +6,10 @@ import { UiSpinner } from '@/shared/ui';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 
+defineOptions({
+    name: 'balance',
+});
+
 const { balance, label = false } = defineProps<PropTypes>();
 const { t } = useI18n();
 

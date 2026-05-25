@@ -10,6 +10,10 @@ import { useI18n } from 'vue-i18n';
 
 const MAX_AUTHOR_NAME = 16;
 
+defineOptions({
+    name: 'edit-dungeon',
+});
+
 const { locked, lock, release } = useLock();
 const { t } = useI18n();
 const { model, error, applyProblemDetails } = useProblemDetails({
@@ -245,7 +249,7 @@ $property-height: 70px;
     --ui-property-vertical-label-spacing: spacing.$spacing-1;
 
     color: colors.$body-copy;
-    background: lighten(colors.$background-pane, 5);
+    background: color.adjust(colors.$background-pane, $lightness: 5%);
     border: 1px solid transparent;
     border-radius: border-radius.$border-radius-md;
     width: 50em;

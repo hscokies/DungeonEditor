@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import { Login } from '@/features';
+
+defineOptions({
+    name: 'login-page',
+});
 </script>
 
 <template>

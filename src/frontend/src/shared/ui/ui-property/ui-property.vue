@@ -1,4 +1,8 @@
 <script setup lang="ts">
+defineOptions({
+    name: 'ui-property',
+});
+
 defineProps({
     id: { type: String, required: true },
     label: { type: String, required: true },

@@ -8,6 +8,10 @@ import { IconSize } from '@/shared/types/icon-size.ts';
 import { useLock } from '@/shared/hooks';
 import type { LazyOptions } from '@/shared/types/lazy-loading.ts';
 
+defineOptions({
+    name: 'view-users',
+});
+
 const { locked, lock, release } = useLock();
 
 const rows = ref<User[]>([]);

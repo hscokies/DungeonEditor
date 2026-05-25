@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import { Register } from '@/features';
+
+defineOptions({
+    name: 'register-page',
+});
 </script>
 
 <template>

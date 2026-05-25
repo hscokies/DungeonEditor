@@ -6,6 +6,10 @@ import { ref } from 'vue';
 import type { Emits, PropTypes } from '@/widgets/menu/model/types.ts';
 import { Balance as BalanceWidget } from '@/widgets';
 
+defineOptions({
+    name: 'burger-menu',
+});
+
 const { links, balance } = defineProps<PropTypes>();
 const emit = defineEmits<Emits>();
 

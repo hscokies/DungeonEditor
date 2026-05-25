@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { ViewTransactions } from '@/features';
 import Page from '@/pages/ui/page.vue';
+
+defineOptions({
+    name: 'transactions-page',
+});
 </script>
 
 <template>

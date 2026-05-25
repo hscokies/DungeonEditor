@@ -2,6 +2,10 @@
 import { computed } from 'vue';
 import type { PropTypes } from './ui-spinner.types.ts';
 
+defineOptions({
+    name: 'ui-spinner',
+});
+
 const { size, thickness } = defineProps<PropTypes>();
 
 const styles = computed(() => {

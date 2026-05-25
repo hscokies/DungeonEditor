@@ -61,7 +61,10 @@ function getComponentName() {
         return fallbackComponentName;
     }
 
-    let name = instance.type.name ?? getFileNameWithoutExtension(instance.type.__file);
+    const name = instance.type.name;
+    if (!name?.length) {
+        throw new Error(`unable to determine component name for ${getFileNameWithoutExtension(instance.type.__file)}`);
+    }
 
     return name ? toKebabCase(name) : fallbackComponentName;
 }

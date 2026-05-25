@@ -19,6 +19,10 @@ const { locked, lock, release } = useLock();
 
 const placeholderAsset = 'сhalice-placeholder';
 
+defineOptions({
+    name: 'view-dungeons',
+});
+
 const editDungeonDialogRef = useTemplateRef('edit-dungeon');
 const rows = ref<DungeonPreview[]>([]);
 

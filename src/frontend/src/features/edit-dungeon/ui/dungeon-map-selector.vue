@@ -6,6 +6,10 @@ import { DungeonApi } from '@/entities/dungeon/dungeon/dungeon-api.ts';
 import { ref } from 'vue';
 import type { DungeonMapOption } from '@/features/edit-dungeon/model/types.ts';
 
+defineOptions({
+    name: 'dungeon-map-selector',
+});
+
 const { locked, lock, release } = useLock();
 
 const maps = ref<DungeonMapOption[]>([]);

@@ -6,6 +6,10 @@ import { UiIconButton } from '@/shared/ui';
 import { IconSize } from '@/shared/types/icon-size.ts';
 import { Menu } from '@/widgets';
 
+defineOptions({
+    name: 'page',
+});
+
 const contentRef = useTemplateRef('content');
 const { y } = useScroll(contentRef);
 const contentScrolled = computed(() => y.value > 0);

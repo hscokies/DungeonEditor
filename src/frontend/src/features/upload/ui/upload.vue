@@ -13,6 +13,10 @@ import { formatSize } from '@/shared/utils/string.ts';
 const MEGABYTE = 1024 * 1024;
 const MAX_SIZE_BYTES_MB = 5 * MEGABYTE;
 
+defineOptions({
+    name: 'upload',
+});
+
 const { locked, lock, release } = useLock();
 
 const { t } = useI18n();
@@ -149,6 +153,10 @@ function onDragLeave() {
     border-radius: border-radius.$border-radius-lg;
     padding: spacing.$spacing-5;
     width: 30rem;
+
+    @media (max-width: 495px) {
+        width: 100%;
+    }
 
     &__hidden-input-container {
         position: absolute;

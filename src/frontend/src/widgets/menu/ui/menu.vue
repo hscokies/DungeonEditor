@@ -9,6 +9,10 @@ import { useI18n } from 'vue-i18n';
 import BurgerMenu from '@/widgets/menu/ui/burger-menu.vue';
 import { Balance } from '@/widgets';
 
+defineOptions({
+    name: 'nav-menu',
+});
+
 const { t } = useI18n();
 const { authorized, user, fetch } = useAuth();
 
@@ -101,7 +105,7 @@ onMounted(() => {
 
 $accent: colors.$cpt-peach;
 
-.menu {
+.nav-menu {
     --ui-button-padding: #{spacing.$spacing-0-5};
     display: flex;
     flex-flow: row nowrap;

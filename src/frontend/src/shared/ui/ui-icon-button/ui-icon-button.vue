@@ -1,4 +1,8 @@
 <script setup lang="ts">
+defineOptions({
+    name: 'ui-icon-button',
+});
+
 const props = defineProps<{
     label: string;
 }>();

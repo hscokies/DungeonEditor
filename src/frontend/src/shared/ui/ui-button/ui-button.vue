@@ -2,6 +2,10 @@
 import type { PropTypes } from './ui-button.styles.ts';
 import { UiSpinner } from '@/shared/ui';
 
+defineOptions({
+    name: 'ui-button',
+});
+
 const { label, active, disabled, loading } = defineProps<PropTypes>();
 </script>
 

@@ -9,6 +9,10 @@ import { router, Routes } from '@/app/router';
 import { useLock } from '@/shared/hooks';
 import type { LazyOptions } from '@/shared/types/lazy-loading.ts';
 
+defineOptions({
+    name: 'view-uploads',
+});
+
 const { t } = useI18n();
 const { locked, lock, release } = useLock();
 const rows = ref<SaveFile[]>([]);

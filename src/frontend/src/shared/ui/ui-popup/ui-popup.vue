@@ -4,6 +4,10 @@ import { createPopper, type Instance as PopperInstance } from '@popperjs/core';
 import { nextTick, onBeforeUnmount, ref, useTemplateRef } from 'vue';
 import { popupService } from '@/shared/servies';
 
+defineOptions({
+    name: 'ui-popup',
+});
+
 const { placement = 'bottom', strategy = 'absolute', offsetX, offsetY, reference } = defineProps<Props>();
 const emit = defineEmits<Emits>();
 

@@ -2,6 +2,10 @@
 import type { PropTypes } from './ui-select-item.types.ts';
 import { computed } from 'vue';
 
+defineOptions({
+    name: 'ui-select-item',
+});
+
 const { header, label, role, focused, selected, height } = defineProps<PropTypes>();
 
 const styles = computed(() => ({

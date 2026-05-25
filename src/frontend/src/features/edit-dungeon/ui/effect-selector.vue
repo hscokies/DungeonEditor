@@ -4,6 +4,10 @@ import { getEnumKeys } from '@/shared/utils/enum.ts';
 import { Effect } from '@/entities/dungeon/model/types.ts';
 import { useI18n } from 'vue-i18n';
 
+defineOptions({
+    name: 'effect-selector',
+});
+
 const { index } = defineProps<{ index: number }>();
 const { t } = useI18n();
 

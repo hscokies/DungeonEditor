@@ -4,6 +4,10 @@ import { getEnumKeys } from '@/shared/utils/enum.ts';
 import { JoinRequirement } from '@/entities/dungeon/model/types.ts';
 import { useI18n } from 'vue-i18n';
 
+defineOptions({
+    name: 'join-requirement-selector',
+});
+
 const { t } = useI18n();
 
 const options = getEnumKeys(JoinRequirement).map(key => ({

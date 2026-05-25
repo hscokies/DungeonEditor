@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import Page from './page.vue';
 import { ViewUsers } from '@/features';
+
+defineOptions({
+    name: 'users-page',
+});
 </script>
 
 <template>

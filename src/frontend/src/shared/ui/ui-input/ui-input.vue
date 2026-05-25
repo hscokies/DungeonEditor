@@ -3,6 +3,10 @@ import { useCustomFocus } from '@/shared/hooks';
 import { ref } from 'vue';
 import type { PropTypes } from './ui-input.types.ts';
 
+defineOptions({
+    name: 'ui-input',
+});
+
 const { focused, onFocus, onBlur } = useCustomFocus();
 const { type = 'text', placeholder, disabled = false, invalid = false, readonly = false } = defineProps<PropTypes>();
 

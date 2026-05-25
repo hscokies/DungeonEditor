@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import type { PropTypes } from './ui-form.types.ts';
 
+defineOptions({
+    name: 'ui-form',
+});
+
 const { error } = defineProps<PropTypes>();
 </script>
 <template>

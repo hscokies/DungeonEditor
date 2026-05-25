@@ -6,6 +6,10 @@ import { TransactionsApi } from '@/entities/transaction/api/transactions-api.ts'
 import { useLock } from '@/shared/hooks';
 import type { LazyOptions } from '@/shared/types/lazy-loading.ts';
 
+defineOptions({
+    name: 'view-transactions',
+});
+
 const { locked, lock, release } = useLock();
 
 const rows = ref<Transaction[]>([]);

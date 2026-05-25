@@ -8,6 +8,10 @@ import { useI18n } from 'vue-i18n';
 import { useLock, useProblemDetails } from '@/shared/hooks';
 import { computed } from 'vue';
 
+defineOptions({
+    name: 'auth',
+});
+
 const { t } = useI18n();
 const { locked, lock, release } = useLock();
 const { handleAuth, title } = defineProps<PropTypes>();

@@ -7,6 +7,10 @@ import { UiInput, UiSpinner } from '@/shared/ui';
 import { useDebounce } from '@/shared/hooks';
 import { IconSize } from '@/shared/types/icon-size.ts';
 
+defineOptions({
+    name: 'ui-datatable',
+});
+
 const emit = defineEmits<Emits>();
 const {
     keyField,
